@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.cularte.ui.slideshow;
+package com.doiliomatsinhe.cularte.ui.category;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.doiliomatsinhe.cularte.R;
 
-public class SlideshowFragment extends Fragment {
+public class CategoryFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
+    private CategoryViewModel viewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                ViewModelProviders.of(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        viewModel =
+                ViewModelProviders.of(this).get(CategoryViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_category, container, false);
+        final TextView textView = root.findViewById(R.id.text_home);
+        viewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

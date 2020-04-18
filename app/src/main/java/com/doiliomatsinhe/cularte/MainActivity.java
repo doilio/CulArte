@@ -1,11 +1,11 @@
 package com.doiliomatsinhe.cularte;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -24,6 +25,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,18 +35,18 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth authentication;
     private FirebaseAuth.AuthStateListener authStateListener;
     private NavigationView navigationView;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_about)
+                R.id.categoryFragment, R.id.favoriteFragment)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
                     View headerView = navigationView.getHeaderView(0);
 
-                    ImageView profileImg = headerView.findViewById(R.id.profile_image);
+                    CircleImageView profileImg = headerView.findViewById(R.id.profile_image);
                     TextView textName = headerView.findViewById(R.id.text_name);
                     TextView textEmail = headerView.findViewById(R.id.text_email);
 
@@ -88,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         authentication = FirebaseAuth.getInstance();
+
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
 
     }
 
@@ -111,28 +116,10 @@ public class MainActivity extends AppCompatActivity {
         authentication.removeAuthStateListener(authStateListener);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.action_logout:
-                signOut();
-        }
-
-        return super.onOptionsItemSelected(item);
-
-    }
-
-    private void showToast(String msg) {
+    /*    private void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
+        Timber.d("Clicked: %s", msg);
+    }*/
 
     private void signOut() {
         AuthUI.getInstance().signOut(this);
@@ -146,5 +133,26 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void shareApp(MenuItem item) {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.putExtra(Intent.EXTRA_TEXT, "Download CulArte at https://confirm.udacity.com/PKNCP76H and get in touch with our artists");
+        i.setType("text/plain");
+        startActivity(Intent.createChooser(i, "Share using:"));
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
+    public void conctactUs(MenuItem item) {
+        Intent i = new Intent(Intent.ACTION_SENDTO);
+        i.setData(Uri.parse("mailto: doiliomatsinhe@gmail.com"));
+        i.putExtra(Intent.EXTRA_SUBJECT, "How can we improve?");
+        startActivity(Intent.createChooser(i, "Send comments"));
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
+    public void signOut(MenuItem item) {
+        signOut();
+        drawer.closeDrawer(GravityCompat.START);
     }
 }

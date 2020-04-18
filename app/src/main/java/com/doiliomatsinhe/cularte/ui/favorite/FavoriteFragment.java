@@ -1,4 +1,4 @@
-package com.doiliomatsinhe.cularte.ui.home;
+package com.doiliomatsinhe.cularte.ui.favorite;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.doiliomatsinhe.cularte.R;
 
-public class HomeFragment extends Fragment {
+public class FavoriteFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private FavoriteViewModel viewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        viewModel =
+                ViewModelProviders.of(this).get(FavoriteViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_favorite, container, false);
+        final TextView textView = root.findViewById(R.id.text_gallery);
+        viewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
