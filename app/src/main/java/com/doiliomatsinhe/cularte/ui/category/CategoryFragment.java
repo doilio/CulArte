@@ -9,27 +9,38 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.doiliomatsinhe.cularte.R;
+import com.doiliomatsinhe.cularte.data.Repository;
+import com.doiliomatsinhe.cularte.databinding.FragmentCategoryBinding;
 
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private CategoryViewModel viewModel;
+    private FragmentCategoryBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        viewModel =
-                ViewModelProviders.of(this).get(CategoryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_category, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        viewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentCategoryBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.swipeRefresh.setOnRefreshListener(this);
+
+        Repository repository = new Repository();
+        CategoryViewModelFactory factory = new CategoryViewModelFactory(repository);
+        viewModel = new ViewModelProvider(this, factory).get(CategoryViewModel.class);
+        binding.setLifecycleOwner(this);
+    }
+
+    @Override
+    public void onRefresh() {
+
     }
 }

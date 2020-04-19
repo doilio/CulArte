@@ -1,19 +1,13 @@
 package com.doiliomatsinhe.cularte.ui.category;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.doiliomatsinhe.cularte.data.Repository;
 
 public class CategoryViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
 
-    public CategoryViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is Category fragment");
+    public CategoryViewModel(Repository repository) {
     }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
 }
