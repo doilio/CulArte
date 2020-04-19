@@ -21,7 +21,7 @@ public class Artist {
     private String categoria;
     private String biografia;
     private String carreira;
-    private String contactoProfissional;
+    private Long contactoProfissional;
     private Boolean visibilidade;
     private ArrayList<String> imagensUrl;
     private String idUsuarioLogado;
@@ -30,7 +30,7 @@ public class Artist {
     public Artist() {
     }
 
-    public Artist(String id, String nomeArtistico, String nomeArtisticoFilter, String nomeCompleto, String nomeCompletoFilter, String curtaDescricao, String linkInstagram, String linkGithub, String linkDeezer, String linkMedium, String linkSpotify, String linkSoundCloud, String linkTwitter, String linkYoutube, String linkEmail, String categoria, String biografia, String carreira, String contactoProfissional, Boolean visibilidade, ArrayList<String> imagensUrl, String idUsuarioLogado, String dataDeNascimento) {
+    public Artist(String id, String nomeArtistico, String nomeArtisticoFilter, String nomeCompleto, String nomeCompletoFilter, String curtaDescricao, String linkInstagram, String linkGithub, String linkDeezer, String linkMedium, String linkSpotify, String linkSoundCloud, String linkTwitter, String linkYoutube, String linkEmail, String categoria, String biografia, String carreira, Long contactoProfissional, Boolean visibilidade, ArrayList<String> imagensUrl, String idUsuarioLogado, String dataDeNascimento) {
         this.id = id;
         this.nomeArtistico = nomeArtistico;
         this.nomeArtisticoFilter = nomeArtisticoFilter;
@@ -200,11 +200,11 @@ public class Artist {
         this.carreira = carreira;
     }
 
-    public String getContactoProfissional() {
+    public Long getContactoProfissional() {
         return contactoProfissional;
     }
 
-    public void setContactoProfissional(String contactoProfissional) {
+    public void setContactoProfissional(Long contactoProfissional) {
         this.contactoProfissional = contactoProfissional;
     }
 

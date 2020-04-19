@@ -64,7 +64,7 @@ public class ArtistFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 if (artists.isEmpty()) {
                     // TODO handle this
                 } else {
-                    adapter.setArtistList(artistList);
+                    adapter.setArtistList(artists);
                     artistList = artists;
                     binding.swipeRefresh.setRefreshing(false);
                 }
