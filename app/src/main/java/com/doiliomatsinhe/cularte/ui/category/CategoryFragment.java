@@ -29,6 +29,11 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
     private CategoryAdapter adapter;
     private List<Category> categoryList;
 
+
+    public CategoryFragment() {
+        // Required empty public constructor
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
