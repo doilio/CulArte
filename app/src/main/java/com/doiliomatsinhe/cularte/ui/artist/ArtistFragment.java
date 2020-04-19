@@ -14,6 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.doiliomatsinhe.cularte.adapter.ArtistAdapter;
 import com.doiliomatsinhe.cularte.data.Repository;
@@ -108,6 +109,7 @@ public class ArtistFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onArtistItemClick(int position) {
-
+        Artist currentArtist = artistList.get(position);
+        Toast.makeText(getActivity(), String.format("Clicked %s", currentArtist.getNomeCompleto()), Toast.LENGTH_SHORT).show();
     }
 }

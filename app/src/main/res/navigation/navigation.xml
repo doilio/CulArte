@@ -9,7 +9,7 @@
         android:id="@+id/categoryFragment"
         android:name="com.doiliomatsinhe.cularte.ui.category.CategoryFragment"
         android:label="Categories"
-        tools:layout="@layout/fragment_category" >
+        tools:layout="@layout/fragment_category">
         <action
             android:id="@+id/action_categoryFragment_to_artistFragment"
             app:destination="@id/artistFragment" />
@@ -20,7 +20,6 @@
         android:name="com.doiliomatsinhe.cularte.ui.favorite.FavoriteFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_favorite" />
-
 
     <fragment
         android:id="@+id/aboutFragment"
@@ -33,5 +32,13 @@
         <argument
             android:name="categoryName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_artistFragment_to_artistDetailFragment"
+            app:destination="@id/artistDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/artistDetailFragment"
+        android:name="com.doiliomatsinhe.cularte.ui.artistDetail.ArtistDetailFragment"
+        android:label="ArtistDetailFragment"
+        tools:layout="@layout/fragment_artist_detail" />
 </navigation>

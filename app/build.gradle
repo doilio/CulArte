@@ -63,4 +63,7 @@ dependencies {
     // About Page
     implementation 'com.github.medyo:android-about-page:1.2.5'
 
+    // View Wrapper
+    implementation 'com.google.android:flexbox:2.0.1'
+
 }
