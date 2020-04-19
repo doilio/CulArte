@@ -29,6 +29,9 @@
     <fragment
         android:id="@+id/artistFragment"
         android:name="com.doiliomatsinhe.cularte.ui.artist.ArtistFragment"
-        android:label="ArtistFragment"
-        tools:layout="@layout/fragment_artist"/>
+        tools:layout="@layout/fragment_artist">
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -98,6 +99,8 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
         Category category = categoryList.get(position);
         Toast.makeText(getActivity(), category.getNome(), Toast.LENGTH_SHORT).show();
         //  Pass an argument categoryName.
-        NavHostFragment.findNavController(this).navigate(R.id.artistFragment);
+        String categoryName = category.getNome();
+        NavDirections action = CategoryFragmentDirections.actionCategoryFragmentToArtistFragment(categoryName);
+        NavHostFragment.findNavController(this).navigate(action);
     }
 }

@@ -1,9 +1,11 @@
 package com.doiliomatsinhe.cularte.ui.artist;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,6 +23,7 @@ import com.doiliomatsinhe.cularte.databinding.FragmentArtistBinding;
 import com.doiliomatsinhe.cularte.model.Artist;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +34,7 @@ public class ArtistFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private FragmentArtistBinding binding;
     private ArtistAdapter adapter;
     private List<Artist> artistList;
+    private String categoryName;
 
 
     public ArtistFragment() {
@@ -41,6 +45,16 @@ public class ArtistFragment extends Fragment implements SwipeRefreshLayout.OnRef
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentArtistBinding.inflate(inflater, container, false);
+
+        if (getArguments() != null) {
+            ArtistFragmentArgs args = ArtistFragmentArgs.fromBundle(getArguments());
+            categoryName = args.getCategoryName();
+        }
+
+        if (getActivity() != null) {
+            Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setTitle(categoryName);
+        }
+
 
         return binding.getRoot();
     }
