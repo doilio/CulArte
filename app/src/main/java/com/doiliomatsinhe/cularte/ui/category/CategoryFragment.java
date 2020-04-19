@@ -10,9 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.doiliomatsinhe.cularte.R;
+import com.doiliomatsinhe.cularte.adapter.CategoryAdapter;
 import com.doiliomatsinhe.cularte.data.Repository;
 import com.doiliomatsinhe.cularte.databinding.FragmentCategoryBinding;
 
@@ -20,6 +23,7 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private CategoryViewModel viewModel;
     private FragmentCategoryBinding binding;
+    private CategoryAdapter adapter;
 
     @Nullable
     @Override
@@ -31,6 +35,15 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initialConfig();
+        adapter = new CategoryAdapter();
+        binding.recyclerCategory.setAdapter(adapter);
+        binding.recyclerCategory.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+        binding.recyclerCategory.setLayoutManager(layoutManager);
+    }
+
+    private void initialConfig() {
         binding.swipeRefresh.setOnRefreshListener(this);
 
         Repository repository = new Repository();
