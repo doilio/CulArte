@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:5.0.0'
     implementation "com.google.firebase:firebase-auth:19.3.0"
     implementation 'com.google.firebase:firebase-storage:19.1.1'
+    implementation 'com.google.firebase:firebase-firestore:21.4.2'
 
     // Logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
