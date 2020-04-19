@@ -1,6 +1,5 @@
 package com.doiliomatsinhe.cularte.ui.artist;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.doiliomatsinhe.cularte.R;
 import com.doiliomatsinhe.cularte.adapter.ArtistAdapter;
 import com.doiliomatsinhe.cularte.data.Repository;
 import com.doiliomatsinhe.cularte.databinding.FragmentArtistBinding;
@@ -65,14 +63,13 @@ public class ArtistFragment extends Fragment implements SwipeRefreshLayout.OnRef
         initialConfig();
         configAdapter();
 
-        retrieveCategories();
+        retrieveArtists();
     }
 
 
-    private void retrieveCategories() {
+    private void retrieveArtists() {
         binding.swipeRefresh.setRefreshing(true);
-        //TODO get the category name to filter the artists
-        viewModel.readArtists("").observe(getViewLifecycleOwner(), new Observer<List<Artist>>() {
+        viewModel.readArtists(categoryName).observe(getViewLifecycleOwner(), new Observer<List<Artist>>() {
             @Override
             public void onChanged(List<Artist> artists) {
                 if (artists.isEmpty()) {
@@ -106,7 +103,7 @@ public class ArtistFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onRefresh() {
-
+        retrieveArtists();
     }
 
     @Override
