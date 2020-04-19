@@ -20,27 +20,37 @@ import java.util.List;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
     private List<Category> categoryList = new ArrayList<>();
-//    private ImageView categoryImage;
-//    private TextView categoryName;
-//    private TextView categoryDescription;
+    private CategoryItemClickListener onClickListener;
 
+    public CategoryAdapter(CategoryItemClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private CategoryItemBinding binding;
 
-        public ViewHolder(@NonNull CategoryItemBinding binding) {
+        private ViewHolder(@NonNull CategoryItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            binding.getRoot().setOnClickListener(this);
 //            categoryImage = itemView.findViewById(R.id.category_image);
 //            categoryName = itemView.findViewById(R.id.category_name);
 //            categoryDescription = itemView.findViewById(R.id.category_description);
 
         }
 
-        public void bind(Category currentCategory) {
+        private void bind(Category currentCategory) {
             binding.categoryName.setText(currentCategory.getNome());
             binding.categoryDescription.setText(currentCategory.getDescricao());
             Picasso.get().load(currentCategory.getImagemUrl()).into(binding.categoryImage);
+
+            binding.executePendingBindings();
+        }
+
+        @Override
+        public void onClick(View v) {
+            int clickedItem = getAdapterPosition();
+            onClickListener.onCategoryItemClick(clickedItem);
         }
     }
 
@@ -81,5 +91,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         return categoryList.size();
     }
 
+    public interface CategoryItemClickListener {
+        void onCategoryItemClick(int position);
+    }
 
 }

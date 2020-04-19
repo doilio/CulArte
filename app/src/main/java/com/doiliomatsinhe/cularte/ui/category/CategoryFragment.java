@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,11 +22,12 @@ import com.doiliomatsinhe.cularte.model.Category;
 
 import java.util.List;
 
-public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, CategoryAdapter.CategoryItemClickListener {
 
     private CategoryViewModel viewModel;
     private FragmentCategoryBinding binding;
     private CategoryAdapter adapter;
+    private List<Category> categoryList;
 
     @Nullable
     @Override
@@ -53,6 +55,7 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
                     // TODO handle this
                 } else {
                     adapter.setCategoryList(categories);
+                    categoryList = categories;
                     binding.swipeRefresh.setRefreshing(false);
                 }
             }
@@ -60,7 +63,7 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void configAdapter() {
-        adapter = new CategoryAdapter();
+        adapter = new CategoryAdapter(this);
         binding.recyclerCategory.setAdapter(adapter);
         binding.recyclerCategory.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
@@ -79,5 +82,12 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         retrieveCategories();
+    }
+
+    @Override
+    public void onCategoryItemClick(int position) {
+        Category category = categoryList.get(position);
+        Toast.makeText(getActivity(), category.getNome(), Toast.LENGTH_SHORT).show();
+
     }
 }
