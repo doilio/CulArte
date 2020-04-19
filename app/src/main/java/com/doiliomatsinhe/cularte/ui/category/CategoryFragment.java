@@ -66,6 +66,7 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
         adapter = new CategoryAdapter(this);
         binding.recyclerCategory.setAdapter(adapter);
         binding.recyclerCategory.setHasFixedSize(true);
+        //TODO replace with GridLayout to control the span on configuration changes
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         binding.recyclerCategory.setLayoutManager(layoutManager);
     }

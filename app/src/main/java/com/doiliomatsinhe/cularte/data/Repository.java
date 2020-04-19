@@ -21,7 +21,7 @@ public class Repository {
                 .orderBy(FILTER_NAME);
     }
 
-    private Query readArtists(String categoryName) {
+    public Query readArtists(String categoryName) {
         return firestoreDB.collection(ARTISTS)
                 .whereEqualTo(VISIBILITY, true)
                 .whereEqualTo(CATEGORY, categoryName)
