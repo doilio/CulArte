@@ -15,7 +15,7 @@ public class Repository {
     private static final String CATEGORY = "categoria";
     private static final String FILTER_ARTISTIC_NAME = "nomeArtisticoFilter";
 
-    private Query readCategories() {
+    public Query readCategories() {
         return firestoreDB.collection(CATEGORIES)
                 .whereEqualTo(VISIBILITY, true)
                 .orderBy(FILTER_NAME);
