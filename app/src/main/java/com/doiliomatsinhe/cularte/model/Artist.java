@@ -1,8 +1,10 @@
 package com.doiliomatsinhe.cularte.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Artist {
+// Use a Parcelable Interface later
+public class Artist implements Serializable {
     private String id;
     private String nomeArtistico;
     private String nomeArtisticoFilter;
@@ -10,8 +12,10 @@ public class Artist {
     private String nomeCompletoFilter;
     private String curtaDescricao;
     private String linkInstagram;
+    private String linkFacebook;
     private String linkGithub;
     private String linkDeezer;
+    private String linkLinkedIn;
     private String linkMedium;
     private String linkSpotify;
     private String linkSoundCloud;
@@ -30,7 +34,7 @@ public class Artist {
     public Artist() {
     }
 
-    public Artist(String id, String nomeArtistico, String nomeArtisticoFilter, String nomeCompleto, String nomeCompletoFilter, String curtaDescricao, String linkInstagram, String linkGithub, String linkDeezer, String linkMedium, String linkSpotify, String linkSoundCloud, String linkTwitter, String linkYoutube, String linkEmail, String categoria, String biografia, String carreira, Long contactoProfissional, Boolean visibilidade, ArrayList<String> imagensUrl, String idUsuarioLogado, String dataDeNascimento) {
+    public Artist(String id, String nomeArtistico, String nomeArtisticoFilter, String nomeCompleto, String nomeCompletoFilter, String curtaDescricao, String linkInstagram, String linkFacebook, String linkGithub, String linkDeezer, String linkLinkedIn, String linkMedium, String linkSpotify, String linkSoundCloud, String linkTwitter, String linkYoutube, String linkEmail, String categoria, String biografia, String carreira, Long contactoProfissional, Boolean visibilidade, ArrayList<String> imagensUrl, String idUsuarioLogado, String dataDeNascimento) {
         this.id = id;
         this.nomeArtistico = nomeArtistico;
         this.nomeArtisticoFilter = nomeArtisticoFilter;
@@ -38,8 +42,10 @@ public class Artist {
         this.nomeCompletoFilter = nomeCompletoFilter;
         this.curtaDescricao = curtaDescricao;
         this.linkInstagram = linkInstagram;
+        this.linkFacebook = linkFacebook;
         this.linkGithub = linkGithub;
         this.linkDeezer = linkDeezer;
+        this.linkLinkedIn = linkLinkedIn;
         this.linkMedium = linkMedium;
         this.linkSpotify = linkSpotify;
         this.linkSoundCloud = linkSoundCloud;
@@ -112,6 +118,14 @@ public class Artist {
         this.linkInstagram = linkInstagram;
     }
 
+    public String getLinkFacebook() {
+        return linkFacebook;
+    }
+
+    public void setLinkFacebook(String linkFacebook) {
+        this.linkFacebook = linkFacebook;
+    }
+
     public String getLinkGithub() {
         return linkGithub;
     }
@@ -126,6 +140,14 @@ public class Artist {
 
     public void setLinkDeezer(String linkDeezer) {
         this.linkDeezer = linkDeezer;
+    }
+
+    public String getLinkLinkedIn() {
+        return linkLinkedIn;
+    }
+
+    public void setLinkLinkedIn(String linkLinkedIn) {
+        this.linkLinkedIn = linkLinkedIn;
     }
 
     public String getLinkMedium() {

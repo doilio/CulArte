@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -110,6 +112,8 @@ public class ArtistFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onArtistItemClick(int position) {
         Artist currentArtist = artistList.get(position);
-        Toast.makeText(getActivity(), String.format("Clicked %s", currentArtist.getNomeCompleto()), Toast.LENGTH_SHORT).show();
+        NavDirections action = ArtistFragmentDirections.actionArtistFragmentToArtistDetailFragment(currentArtist);
+        NavHostFragment.findNavController(this).navigate(action);
+        //Toast.makeText(getActivity(), String.format("Clicked %s", currentArtist.getNomeCompleto()), Toast.LENGTH_SHORT).show();
     }
 }

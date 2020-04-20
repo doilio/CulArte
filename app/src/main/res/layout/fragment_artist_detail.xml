@@ -94,7 +94,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="Contact"
+                            android:fontFamily="sans-serif-condensed"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/artist_detail_description" />
@@ -136,7 +138,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="Social Media"
+                            android:fontFamily="sans-serif-condensed"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/linearlayout_contact" />
@@ -239,7 +243,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="Story"
+                            android:fontFamily="sans-serif-condensed"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/flexboxLayout" />
