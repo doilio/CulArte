@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".ui.artistDetail.ArtistDetailFragment">
+
+                <ImageView
+                    android:id="@+id/detail_image"
+                    android:layout_width="0dp"
+                    android:layout_height="400dp"
+                    android:contentDescription="Artist Image"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/pexels2" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detail_image">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="64dp">
+
+                        <TextView
+                            android:id="@+id/artist_detail_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:textSize="32sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Name" />
+
+                        <TextView
+                            android:id="@+id/artist_detail_realname"
+                            android:layout_width="0dp"
+                            android:visibility="gone"
+                            tools:visibility="visible"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/artist_detail_name"
+                            tools:text="real name, RealName." />
+
+
+                        <TextView
+                            android:id="@+id/artist_detail_description"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/artist_detail_realname"
+                            tools:text="This is Where the Short Description will be, This is Where the Short Description will be, This is Where the Short Description will be!" />
+
+                        <TextView
+                            android:id="@+id/artist_detail_contact_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Contact"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/artist_detail_description" />
+
+                        <LinearLayout
+                            android:id="@+id/linearlayout_contact"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/artist_detail_contact_title">
+
+                            <Button
+                                tools:visibility="visible"
+                                android:visibility="gone"
+                                android:id="@+id/button_telephone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/colorPrimaryDark"
+                                android:text="Telephone"
+                                android:textColor="@android:color/white"
+
+                                />
+
+                            <Button
+                                tools:visibility="visible"
+                                android:visibility="gone"
+                                android:id="@+id/button_email"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/colorPrimaryDark"
+                                android:text="E-Mail"
+                                android:textColor="@android:color/white" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/artist_detail_social_media"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Social Media"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/linearlayout_contact" />
+
+                        <com.google.android.flexbox.FlexboxLayout
+                            android:id="@+id/flexboxLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="8dp"
+                            android:visibility="gone"
+                            app:alignContent="stretch"
+                            app:alignItems="stretch"
+                            app:dividerDrawable="@drawable/divider"
+                            app:flexWrap="wrap"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/artist_detail_social_media"
+                            app:showDivider="middle"
+                            tools:visibility="visible">
+
+                            <ImageView
+                                android:id="@+id/icon_instagram"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:contentDescription="Instagram Icon"
+                                app:srcCompat="@drawable/instagram" />
+
+                            <ImageView
+                                android:id="@+id/icon_facebook"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:contentDescription="Facebook Icon"
+                                app:srcCompat="@drawable/facebook" />
+
+                            <ImageView
+                                android:id="@+id/icon_github"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:contentDescription="Github Icon"
+                                app:srcCompat="@drawable/github" />
+
+                            <ImageView
+                                android:id="@+id/icon_deezer"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:contentDescription="Deezer Icon"
+                                app:srcCompat="@drawable/deezer" />
+
+                            <ImageView
+                                android:id="@+id/icon_linkedin"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:contentDescription="LinkedIn Icon"
+                                app:srcCompat="@drawable/linkedin" />
+
+                            <ImageView
+                                android:id="@+id/icon_medium"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:contentDescription="Medium Icon"
+                                app:srcCompat="@drawable/medium" />
+
+                            <ImageView
+                                android:id="@+id/icon_soundcloud"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:contentDescription="Soundcloud Icon"
+                                app:srcCompat="@drawable/soundcloud" />
+
+                            <ImageView
+                                android:id="@+id/icon_spotify"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:contentDescription="Spotify Icon"
+                                app:srcCompat="@drawable/spotify" />
+
+                            <ImageView
+                                android:id="@+id/icon_twitter"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:contentDescription="Twitter Icon"
+                                app:srcCompat="@drawable/twitter" />
+
+                            <ImageView
+                                android:id="@+id/icon_youtube"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:contentDescription="Youtube Icon"
+                                app:srcCompat="@drawable/youtube" />
+                        </com.google.android.flexbox.FlexboxLayout>
+
+                        <TextView
+                            android:id="@+id/artist_detail_story_label"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Story"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/flexboxLayout" />
+
+                        <TextView
+                            android:id="@+id/artist_detail_story"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/artist_detail_story_label"
+                            tools:text="This is Where the Short Description will be, This is Where the Short Description will be, This is Where the Short Description will be,This is Where the Short Description will be, This is Where the Short Description will be! \n\nThis is Where the Short Description will be,This is Where the Short Description will be,This is Where the Short Description will be!\n\nThis is Where the Short Description will be!" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_share_white_24dp"
+            app:fabSize="auto"
+            app:layout_anchor="@id/scrollView"
+            app:layout_anchorGravity="bottom|end"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/categoryFragment">
+
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.doiliomatsinhe.cularte.ui.category.CategoryFragment"
+        android:label="Categories"
+        tools:layout="@layout/fragment_category">
+        <action
+            android:id="@+id/action_categoryFragment_to_artistFragment"
+            app:destination="@id/artistFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.doiliomatsinhe.cularte.ui.favorite.FavoriteFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorite" />
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.doiliomatsinhe.cularte.ui.about.AboutFragment"
+        android:label="About" />
+    <fragment
+        android:id="@+id/artistFragment"
+        android:name="com.doiliomatsinhe.cularte.ui.artist.ArtistFragment"
+        tools:layout="@layout/fragment_artist">
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_artistFragment_to_artistDetailFragment"
+            app:destination="@id/artistDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/artistDetailFragment"
+        android:name="com.doiliomatsinhe.cularte.ui.artistDetail.ArtistDetailFragment"
+        tools:layout="@layout/fragment_artist_detail">
+        <argument
+            android:name="Artist"
+            app:argType="com.doiliomatsinhe.cularte.model.Artist"
+            app:nullable="true" />
+    </fragment>
+</navigation>

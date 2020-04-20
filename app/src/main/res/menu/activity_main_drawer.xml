@@ -5,32 +5,36 @@
         android:id="@+id/group1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/categoryFragment"
             android:icon="@drawable/ic_home_white_24dp"
-            android:title="@string/menu_home" />
+            android:title="Categories" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/favoriteFragment"
             android:icon="@drawable/ic_favorite_white_24dp"
             android:title="Favorites" />
     </group>
 
     <group android:id="@+id/group2">
         <item
+            android:onClick="shareApp"
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_share_white_24dp"
             android:title="Share " />
         <item
+            android:onClick="conctactUs"
             android:id="@+id/nav_contact"
             android:icon="@drawable/ic_email_white_24dp"
             android:title="Contact-us" />
         <item
-            android:id="@+id/nav_about"
+            android:id="@+id/aboutFragment"
             android:icon="@drawable/ic_info_white_24dp"
             android:title="About" />
         <item
             android:id="@+id/nav_sign_out"
             android:icon="@drawable/ic_exit_to_app_white_24dp"
-            android:title="Sign out" />
+            android:title="Sign out"
+            android:onClick="signOut"
+            />
     </group>
 
 

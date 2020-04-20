@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: "androidx.navigation.safeargs"
 
 android {
     compileSdkVersion 29
@@ -48,6 +49,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:5.0.0'
     implementation "com.google.firebase:firebase-auth:19.3.0"
     implementation 'com.google.firebase:firebase-storage:19.1.1'
+    implementation 'com.google.firebase:firebase-firestore:21.4.2'
 
     // Logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
@@ -58,5 +60,10 @@ dependencies {
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    // About Page
+    implementation 'com.github.medyo:android-about-page:1.2.5'
+
+    // View Wrapper
+    implementation 'com.google.android:flexbox:2.0.1'
 
 }
