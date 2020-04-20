@@ -16,12 +16,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.doiliomatsinhe.cularte.adapter.ArtistAdapter;
 import com.doiliomatsinhe.cularte.data.Repository;
 import com.doiliomatsinhe.cularte.databinding.FragmentArtistBinding;
 import com.doiliomatsinhe.cularte.model.Artist;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -43,7 +44,7 @@ public class ArtistFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentArtistBinding.inflate(inflater, container, false);
 
@@ -121,6 +122,5 @@ public class ArtistFragment extends Fragment implements SwipeRefreshLayout.OnRef
         Artist currentArtist = artistList.get(position);
         NavDirections action = ArtistFragmentDirections.actionArtistFragmentToArtistDetailFragment(currentArtist);
         NavHostFragment.findNavController(this).navigate(action);
-        //Toast.makeText(getActivity(), String.format("Clicked %s", currentArtist.getNomeCompleto()), Toast.LENGTH_SHORT).show();
     }
 }

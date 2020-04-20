@@ -31,10 +31,6 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(this);
-//            categoryImage = itemView.findViewById(R.id.category_image);
-//            categoryName = itemView.findViewById(R.id.category_name);
-//            categoryDescription = itemView.findViewById(R.id.category_description);
-
         }
 
         private void bind(Artist currentArtist) {
@@ -72,9 +68,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        //View view = inflater.inflate(R.layout.category_item, parent, false);
         ArtistItemBinding binding = ArtistItemBinding.inflate(inflater, parent, false);
-        //return new ViewHolder(view);
         return new ViewHolder(binding);
     }
 
@@ -85,13 +79,6 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
         if (currentArtist != null) {
             holder.bind(currentArtist);
         }
-
-//        if (currentCategory != null) {
-//            categoryName.setText(currentCategory.getNome());
-//            categoryDescription.setText(currentCategory.getDescricao());
-//
-//            Picasso.get().load(currentCategory.getImagemUrl()).into(categoryImage);
-//        }
 
     }
 

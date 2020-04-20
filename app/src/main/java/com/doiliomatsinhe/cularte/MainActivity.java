@@ -5,10 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.navigation.NavigationView;
@@ -118,11 +115,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         authentication.removeAuthStateListener(authStateListener);
     }
-
-    /*    private void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        Timber.d("Clicked: %s", msg);
-    }*/
 
     private void signOut() {
         AuthUI.getInstance().signOut(this);

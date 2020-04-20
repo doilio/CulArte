@@ -21,7 +21,6 @@ import timber.log.Timber;
 public class CategoryViewModel extends ViewModel {
 
     private MutableLiveData<List<Category>> _categories = new MutableLiveData<>();
-    //public LiveData<List<Category>> categories = _categories;
     private Repository repository;
 
     public CategoryViewModel(Repository repository) {

@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,10 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.doiliomatsinhe.cularte.R;
-import com.doiliomatsinhe.cularte.databinding.FragmentArtistBinding;
 import com.doiliomatsinhe.cularte.databinding.FragmentArtistDetailBinding;
 import com.doiliomatsinhe.cularte.model.Artist;
-import com.doiliomatsinhe.cularte.ui.artist.ArtistFragmentArgs;
 import com.doiliomatsinhe.cularte.utils.Utils;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
