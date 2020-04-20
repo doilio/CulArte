@@ -37,6 +37,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 tools:text="Category Name" />
 

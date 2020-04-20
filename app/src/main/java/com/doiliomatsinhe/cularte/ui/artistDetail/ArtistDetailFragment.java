@@ -1,6 +1,7 @@
 package com.doiliomatsinhe.cularte.ui.artistDetail;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,7 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,6 +23,8 @@ import com.doiliomatsinhe.cularte.databinding.FragmentArtistBinding;
 import com.doiliomatsinhe.cularte.databinding.FragmentArtistDetailBinding;
 import com.doiliomatsinhe.cularte.model.Artist;
 import com.doiliomatsinhe.cularte.ui.artist.ArtistFragmentArgs;
+import com.doiliomatsinhe.cularte.utils.Utils;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
@@ -68,12 +75,13 @@ public class ArtistDetailFragment extends Fragment {
         } else {
             //TODO Populate with Artist Object coming from Room Database, when Favorites are working
         }
+        setHasOptionsMenu(true);
     }
 
     private void populateUI(final Artist artist) {
 
         // Image
-        if (artist.getImagensUrl().get(0).isEmpty()) {
+        if (!artist.getImagensUrl().get(0).isEmpty()) {
             Picasso.get().load(artist.getImagensUrl().get(0)).into(binding.detailImage);
             Timber.d(artist.getImagensUrl().get(0));
         }
@@ -132,11 +140,58 @@ public class ArtistDetailFragment extends Fragment {
             binding.artistDetailStory.setText(artist.getBiografia());
         }
 
-
         // Social Media
         validateSocialMediaLinks(artist);
 
         // Icon Clicks
+        handleIconClicks();
+
+        binding.fabShare.setOnClickListener(new View.OnClickListener() {
+            // When in production replace *link* with link to profile.
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                if (!artist.getNomeArtistico().isEmpty()) {
+                    i.putExtra(Intent.EXTRA_TEXT, String.format("Check out %s's profile on CulArte! *link*", artist.getNomeArtistico()));
+                } else {
+                    i.putExtra(Intent.EXTRA_TEXT, String.format("Check out %s's profile on CulArte! *link*", artist.getNomeCompleto()));
+                }
+                i.setType("text/plain");
+
+                if (i.resolveActivity(requireActivity().getPackageManager()) != null) {
+                    startActivity(Intent.createChooser(i, "Share profile:"));
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.detail_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.ic_favorite:
+                showSnackbar("Favorite Clicked");
+                break;
+            case R.id.ic_report:
+                showSnackbar("Report Clicked");
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showSnackbar(String msg) {
+        Snackbar.make(binding.scrollView, msg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private void handleIconClicks() {
         binding.iconFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,48 +252,122 @@ public class ArtistDetailFragment extends Fragment {
                 openSpotify(spotifyId);
             }
         });
-
-
     }
 
     private void openSpotify(String spotifyId) {
-
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.addCategory(Intent.CATEGORY_BROWSABLE);
+        i.setData(Uri.parse(String.format("https://open.spotify.com/artist/%s", spotifyId)));
+        startActivity(i);
     }
 
     private void openDeezer(String deezerId) {
-
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.addCategory(Intent.CATEGORY_BROWSABLE);
+        if (Utils.isAppInstalled(requireActivity(), "deezer.android.app")) {
+            i.setPackage("deezer.android.app");
+        }
+        i.setData(Uri.parse(String.format("https://www.deezer.com/en/artist/%s", deezerId)));
+        startActivity(i);
     }
 
     private void openMedium(String mediumId) {
-
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.addCategory(Intent.CATEGORY_BROWSABLE);
+        if (Utils.isAppInstalled(requireActivity(), "com.medium.reader")) {
+            i.setPackage("com.medium.reader");
+        }
+        i.setData(Uri.parse(String.format("https://medium.com/@%s", mediumId)));
+        startActivity(i);
     }
 
     private void openLinkedIn(String linkedInId) {
-
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.addCategory(Intent.CATEGORY_BROWSABLE);
+        if (Utils.isAppInstalled(requireActivity(), "com.linkedin.android")) {
+            i.setPackage("com.linkedin.android");
+        }
+        i.setData(Uri.parse(String.format("https://www.linkedin.com/in/%s", linkedInId)));
+        startActivity(i);
     }
 
     private void openSoundCloud(String soundCloudId) {
-
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.addCategory(Intent.CATEGORY_BROWSABLE);
+        if (Utils.isAppInstalled(requireActivity(), "com.soundcloud.android")) {
+            i.setPackage("com.soundcloud.android");
+        }
+        i.setData(Uri.parse(String.format("https://soundcloud.com/%s", soundCloudId)));
+        startActivity(i);
     }
 
     private void openGithub(String githubId) {
-
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.addCategory(Intent.CATEGORY_BROWSABLE);
+        // Keep looking for this package name
+        /*        if (Utils.isAppInstalled(requireActivity(), "")) {
+            i.setPackage("");
+        }*/
+        i.setData(Uri.parse(String.format("https://github.com/%s", githubId)));
+        startActivity(i);
     }
 
     private void openYoutube(String youtubeId) {
-
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.addCategory(Intent.CATEGORY_BROWSABLE);
+        if (Utils.isAppInstalled(requireActivity(), "com.google.android.youtube")) {
+            i.setPackage("com.google.android.youtube");
+        }
+        i.setData(Uri.parse(String.format("http://youtube.com/channel/%s", youtubeId)));
+        startActivity(i);
     }
 
     private void openTwitter(String twitterId) {
-
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.addCategory(Intent.CATEGORY_BROWSABLE);
+        if (Utils.isAppInstalled(requireActivity(), "com.twitter.android")) {
+            i.setPackage("com.twitter.android");
+            i.setData(Uri.parse(String.format("twitter://user?screen_name=%s", twitterId)));
+        } else {
+            i.setData(Uri.parse(String.format("http://twitter.com/intent/user?screen_name=%s", twitterId)));
+        }
+        startActivity(i);
     }
 
     private void openInstagram(String instagramId) {
-
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.addCategory(Intent.CATEGORY_BROWSABLE);
+        if (Utils.isAppInstalled(requireActivity(), "com.instagram.android")) {
+            i.setPackage("com.instagram.android");
+        }
+        i.setData(Uri.parse(String.format("http://instagram.com/_u/%s", instagramId)));
+        startActivity(i);
     }
 
     private void openFacebook(String facebookId) {
-
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.addCategory(Intent.CATEGORY_BROWSABLE);
+        if (Utils.isAppInstalled(requireActivity(), "com.facebook.katana")) {
+            i.setPackage("com.facebook.katana");
+            long versionCode = 0;
+            try {
+                versionCode = requireActivity().getPackageManager()
+                        .getPackageInfo("com.facebook.katana", 0)
+                        .versionCode;
+            } catch (PackageManager.NameNotFoundException e) {
+                Timber.d(e);
+            }
+            if (versionCode >= 3002850) {
+                Uri uri = Uri.parse(String.format("fb://facewebmodal/f?href=http://m.facebook.com/%s", facebookId));
+                i.setData(uri);
+            } else {
+                Uri uri = Uri.parse(String.format("fb://page/%s", facebookId));
+                i.setData(uri);
+            }
+        } else {
+            i.setData(Uri.parse(String.format("http://m.facebook.com/%s", facebookId)));
+        }
+        startActivity(i);
     }
 
     private void validateSocialMediaLinks(Artist artist) {
@@ -304,4 +433,6 @@ public class ArtistDetailFragment extends Fragment {
             binding.iconYoutube.setVisibility(View.GONE);
         }
     }
+
+
 }

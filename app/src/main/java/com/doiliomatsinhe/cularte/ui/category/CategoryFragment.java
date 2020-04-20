@@ -97,7 +97,7 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onCategoryItemClick(int position) {
         Category category = categoryList.get(position);
-        Toast.makeText(getActivity(), category.getNome(), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getActivity(), category.getNome(), Toast.LENGTH_SHORT).show();
         //  Pass an argument categoryName.
         String categoryName = category.getNome();
         NavDirections action = CategoryFragmentDirections.actionCategoryFragmentToArtistFragment(categoryName);

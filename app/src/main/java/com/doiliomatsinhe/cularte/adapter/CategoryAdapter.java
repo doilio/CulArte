@@ -42,7 +42,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         private void bind(Category currentCategory) {
             binding.categoryName.setText(currentCategory.getNome());
             binding.categoryDescription.setText(currentCategory.getDescricao());
-            Picasso.get().load(currentCategory.getImagemUrl()).into(binding.categoryImage);
+
+            if (!currentCategory.getImagemUrl().isEmpty()) {
+                Picasso.get().load(currentCategory.getImagemUrl()).error(R.color.colorPrimary).into(binding.categoryImage);
+            } else {
+                Picasso.get().load(R.color.colorPrimary).into(binding.categoryImage);
+            }
+
 
             binding.executePendingBindings();
         }

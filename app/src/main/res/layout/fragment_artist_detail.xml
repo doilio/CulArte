@@ -7,18 +7,14 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ScrollView
             android:id="@+id/scrollView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -68,6 +64,8 @@
                         <TextView
                             android:id="@+id/artist_detail_realname"
                             android:layout_width="0dp"
+                            android:visibility="gone"
+                            tools:visibility="visible"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                             android:textSize="14sp"
@@ -112,6 +110,8 @@
                             app:layout_constraintTop_toBottomOf="@id/artist_detail_contact_title">
 
                             <Button
+                                tools:visibility="visible"
+                                android:visibility="invisible"
                                 android:id="@+id/button_telephone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -123,6 +123,8 @@
                                 />
 
                             <Button
+                                tools:visibility="visible"
+                                android:visibility="invisible"
                                 android:id="@+id/button_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -280,9 +282,9 @@
             android:layout_margin="16dp"
             android:src="@drawable/ic_share_white_24dp"
             app:fabSize="auto"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_anchor="@id/scrollView"
+            app:layout_anchorGravity="bottom|end"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
