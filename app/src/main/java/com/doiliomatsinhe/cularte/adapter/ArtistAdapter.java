@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.doiliomatsinhe.cularte.R;
 import com.doiliomatsinhe.cularte.databinding.ArtistItemBinding;
 import com.doiliomatsinhe.cularte.model.Artist;
 import com.squareup.picasso.Picasso;
@@ -44,7 +45,13 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
             }
 
             binding.artistDescription.setText(currentArtist.getCurtaDescricao());
-            Picasso.get().load(currentArtist.getImagensUrl().get(0)).into(binding.artistImage);
+
+            if (currentArtist.getImagensUrl().size() > 0) {
+                Picasso.get().load(currentArtist.getImagensUrl().get(0)).into(binding.artistImage);
+            } else {
+                Picasso.get().load(R.color.colorPrimary).into(binding.artistImage);
+            }
+
 
             binding.executePendingBindings();
         }

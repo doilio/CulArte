@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -61,7 +62,7 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onChanged(List<Category> categories) {
                 if (categories.isEmpty()) {
-                    // TODO handle this
+                    showEmptyLayout();
                 } else {
                     adapter.setCategoryList(categories);
                     categoryList = categories;
@@ -71,12 +72,20 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
         });
     }
 
+    private void showEmptyLayout() {
+        binding.swipeRefresh.setRefreshing(false);
+
+        binding.exceptionsLayout.emptyText.setText("There are no public categories at this time, please check again later");
+        binding.exceptionsLayout.emptyTitle.setText("List is empty");
+        binding.exceptionsLayout.layoutEmpty.setVisibility(View.VISIBLE);
+        binding.recyclerCategory.setVisibility(View.GONE);
+    }
+
     private void configAdapter() {
         adapter = new CategoryAdapter(this);
         binding.recyclerCategory.setAdapter(adapter);
         binding.recyclerCategory.setHasFixedSize(true);
-        //TODO replace with GridLayout to control the span on configuration changes
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+        GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 1, RecyclerView.VERTICAL, false);
         binding.recyclerCategory.setLayoutManager(layoutManager);
     }
 

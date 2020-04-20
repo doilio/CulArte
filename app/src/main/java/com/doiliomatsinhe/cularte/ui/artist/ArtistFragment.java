@@ -76,7 +76,8 @@ public class ArtistFragment extends Fragment implements SwipeRefreshLayout.OnRef
             @Override
             public void onChanged(List<Artist> artists) {
                 if (artists.isEmpty()) {
-                    // TODO handle this
+                    showEmptyLayout();
+
                 } else {
                     adapter.setArtistList(artists);
                     artistList = artists;
@@ -84,6 +85,12 @@ public class ArtistFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 }
             }
         });
+    }
+
+    private void showEmptyLayout() {
+        binding.swipeRefresh.setRefreshing(false);
+        binding.exceptionsLayout.layoutEmpty.setVisibility(View.VISIBLE);
+        binding.recyclerArtist.setVisibility(View.GONE);
     }
 
     private void configAdapter() {

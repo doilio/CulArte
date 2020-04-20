@@ -81,9 +81,11 @@ public class ArtistDetailFragment extends Fragment {
     private void populateUI(final Artist artist) {
 
         // Image
-        if (!artist.getImagensUrl().get(0).isEmpty()) {
+        if (artist.getImagensUrl().size() > 0) {
             Picasso.get().load(artist.getImagensUrl().get(0)).into(binding.detailImage);
             Timber.d(artist.getImagensUrl().get(0));
+        } else {
+            Picasso.get().load(R.color.colorPrimary).into(binding.detailImage);
         }
 
         // Real name and Artistic Name
@@ -104,7 +106,7 @@ public class ArtistDetailFragment extends Fragment {
         }
 
         // Contact - Phone
-        if (!String.valueOf(artist.getContactoProfissional()).isEmpty()) {
+        if (!String.valueOf(artist.getContactoProfissional()).isEmpty() && artist.getContactoProfissional() > 1000) {
             binding.buttonTelephone.setVisibility(View.VISIBLE);
             binding.buttonTelephone.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -138,6 +140,8 @@ public class ArtistDetailFragment extends Fragment {
         // Story
         if (!artist.getBiografia().isEmpty()) {
             binding.artistDetailStory.setText(artist.getBiografia());
+        } else {
+            binding.artistDetailStory.setText("N/A");
         }
 
         // Social Media
@@ -180,11 +184,20 @@ public class ArtistDetailFragment extends Fragment {
                 showSnackbar("Favorite Clicked");
                 break;
             case R.id.ic_report:
-                showSnackbar("Report Clicked");
+                reportArtist();
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void reportArtist() {
+        Intent i = new Intent(Intent.ACTION_SENDTO);
+        i.setData(Uri.parse("mailto: doiliomatsinhe@gmail.com"));
+        if (!artist.getId().isEmpty()) {
+            i.putExtra(Intent.EXTRA_SUBJECT, String.format("Reporting user: %s", artist.getId()));
+        }
+        startActivity(Intent.createChooser(i, "Report profile"));
     }
 
     private void showSnackbar(String msg) {

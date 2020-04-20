@@ -46,7 +46,10 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="16dp">
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="64dp">
 
                         <TextView
                             android:id="@+id/artist_detail_name"
@@ -111,7 +114,7 @@
 
                             <Button
                                 tools:visibility="visible"
-                                android:visibility="invisible"
+                                android:visibility="gone"
                                 android:id="@+id/button_telephone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -124,7 +127,7 @@
 
                             <Button
                                 tools:visibility="visible"
-                                android:visibility="invisible"
+                                android:visibility="gone"
                                 android:id="@+id/button_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
