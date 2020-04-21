@@ -20,7 +20,10 @@ public interface ArtistDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addFavorite(Artist artist);
 
+    @Query("SELECT * FROM artists WHERE id =:id")
+    LiveData<Artist> getArtistById(String id);
+
     @Delete
-    void removeFavorite(Artist artist);
+    void removeArtist(Artist artist);
 
 }
