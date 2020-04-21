@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.doiliomatsinhe.cularte.R;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
@@ -31,25 +33,25 @@ public class AboutFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Element versionElement = new Element();
-        versionElement.setTitle("Version" + "1.0.0");
+        versionElement.setTitle(getString(R.string.version) + getString(R.string.version_nr));
 
         return new AboutPage(getActivity())
                 .addItem(versionElement)
-                .setDescription("It is a platform that comes to unify art in Mozambique.\nGetting closer and closer to our artists, showing what our country has to offer when it comes to Art and Culture, helping to publish our artists and disseminate information related to them.")
-                .addGroup("Contact-Us")
-                .addEmail("doiliomatsinhe@gmail.com", "Send an e-mail")
-                .addGroup("Social Networks")
-                .addInstagram("doiliomatsinhe", "Instagram")
-                .addFacebook("doilio.matsinhe", "Facebook")
-                .addGitHub("doilio", "Github")
-                .addTwitter("DoilioMatsinhe", "Twitter")
+                .setDescription(getString(R.string.about_description))
+                .addGroup(getString(R.string.about_contact_us))
+                .addEmail(getString(R.string.about_dev_email), getString(R.string.about_send_mail))
+                .addGroup(getString(R.string.about_social_networks))
+                .addInstagram(getString(R.string.about_instagram_id), getString(R.string.about_instagram))
+                .addFacebook(getString(R.string.about_facebook_id), getString(R.string.about_facebook))
+                .addGitHub(getString(R.string.about_github_id), getString(R.string.about_github))
+                .addTwitter(getString(R.string.about_twitter_id), getString(R.string.about_twitter))
                 .addItem(createCopyright())
                 .create();
     }
 
     private Element createCopyright() {
         Element copyright = new Element();
-        String copyrightString = String.format("Copyright %d by Doilio Matsinhe", Calendar.getInstance().get(Calendar.YEAR));
+        String copyrightString = String.format(getString(R.string.about_copyright), Calendar.getInstance().get(Calendar.YEAR));
         copyright.setTitle(copyrightString);
         copyright.setGravity(Gravity.CENTER);
         return copyright;

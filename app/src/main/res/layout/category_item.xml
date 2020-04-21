@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="145dp"
                 android:background="@color/colorPrimary"
-                android:contentDescription="Category Image"
+                android:contentDescription="@string/category_image"
                 android:scaleType="centerCrop" />
 
             <TextView

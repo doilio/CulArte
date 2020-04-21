@@ -21,7 +21,6 @@ import timber.log.Timber;
 public class ArtistViewModel extends ViewModel {
 
     private MutableLiveData<List<Artist>> _artists = new MutableLiveData<>();
-    //public LiveData<List<Category>> categories = _categories;
     private Repository repository;
 
     public ArtistViewModel(Repository repository) {

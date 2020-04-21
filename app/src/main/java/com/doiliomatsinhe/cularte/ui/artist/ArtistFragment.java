@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.doiliomatsinhe.cularte.R;
 import com.doiliomatsinhe.cularte.adapter.ArtistAdapter;
 import com.doiliomatsinhe.cularte.data.Repository;
 import com.doiliomatsinhe.cularte.databinding.FragmentArtistBinding;
@@ -98,7 +99,7 @@ public class ArtistFragment extends Fragment implements SwipeRefreshLayout.OnRef
         adapter = new ArtistAdapter(this);
         binding.recyclerArtist.setAdapter(adapter);
         binding.recyclerArtist.setHasFixedSize(true);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(getResources().getInteger(R.integer.span_count_artists), StaggeredGridLayoutManager.VERTICAL);
         binding.recyclerArtist.setLayoutManager(layoutManager);
     }
 

@@ -44,6 +44,11 @@ public class ArtistDetailFragment extends Fragment {
     private Artist artist;
     private String instagramId, facebookId, githubId, deezerId, linkedInId, mediumId, soundCloudId, spotifyId, twitterId, youtubeId;
     private ArtistDetailViewModel viewModel;
+    private static final String TEXT_PLAIN = "text/plain";
+    private static final Long FACEBOOK_VERSION_CODE = 0L;
+    private static final int FACEBOOK_FLAG = 0;
+    private static final int FACEBOOK_VERSION_INFERIOR = 3002850;
+    private static final int PHONE_NR_VALID = 800000000;
 
     private ArtistDatabase database;
 
@@ -123,11 +128,11 @@ public class ArtistDetailFragment extends Fragment {
                         if (artist != null) {
                             removeFromFavorites();
                             favoriteItem.setIcon(R.drawable.ic_favorite_border_white_24dp);
-                            showSnackbar("Removed from favorites!");
+                            showSnackbar(getString(R.string.removed_from_favorite));
                         } else {
                             addToFavorites();
                             favoriteItem.setIcon(R.drawable.ic_favorite_white_24dp);
-                            showSnackbar("Added to favorites!");
+                            showSnackbar(getString(R.string.added_to_favorite));
                         }
 
                     }
@@ -170,7 +175,6 @@ public class ArtistDetailFragment extends Fragment {
         // Image
         if (artist.getImagensUrl().size() > 0) {
             Picasso.get().load(artist.getImagensUrl().get(0)).into(binding.detailImage);
-            //Timber.d(artist.getImagensUrl().get(0));
         } else {
             Picasso.get().load(R.color.colorPrimary).into(binding.detailImage);
         }
@@ -179,7 +183,7 @@ public class ArtistDetailFragment extends Fragment {
         if (!artist.getNomeArtistico().isEmpty()) {
             binding.artistDetailName.setText(artist.getNomeArtistico());
             if (!artist.getNomeCompleto().isEmpty()) {
-                binding.artistDetailRealname.setText(String.format("real name, %s", artist.getNomeCompleto()));
+                binding.artistDetailRealname.setText(String.format(getString(R.string.real_name_), artist.getNomeCompleto()));
                 binding.artistDetailRealname.setVisibility(View.VISIBLE);
             }
         } else {
@@ -193,13 +197,13 @@ public class ArtistDetailFragment extends Fragment {
         }
 
         // Contact - Phone
-        if (!String.valueOf(artist.getContactoProfissional()).isEmpty() && artist.getContactoProfissional() > 1000) {
+        if (!String.valueOf(artist.getContactoProfissional()).isEmpty() && artist.getContactoProfissional() > PHONE_NR_VALID) {
             binding.buttonTelephone.setVisibility(View.VISIBLE);
             binding.buttonTelephone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(Intent.ACTION_DIAL);
-                    i.setData(Uri.parse("tel: " + artist.getContactoProfissional().toString()));
+                    i.setData(Uri.parse(String.format(getString(R.string.telephone_nr_), artist.getContactoProfissional().toString())));
 
                     if (i.resolveActivity(requireActivity().getPackageManager()) != null) {
                         startActivity(i);
@@ -215,7 +219,7 @@ public class ArtistDetailFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(Intent.ACTION_SENDTO);
-                    i.setData(Uri.parse("mailto: " + artist.getLinkEmail()));
+                    i.setData(Uri.parse(String.format(getString(R.string.mailto_), artist.getLinkEmail())));
 
                     if (i.resolveActivity(requireActivity().getPackageManager()) != null) {
                         startActivity(i);
@@ -228,7 +232,7 @@ public class ArtistDetailFragment extends Fragment {
         if (!artist.getBiografia().isEmpty()) {
             binding.artistDetailStory.setText(artist.getBiografia());
         } else {
-            binding.artistDetailStory.setText("N/A");
+            binding.artistDetailStory.setText(R.string.not_available);
         }
 
         // Social Media
@@ -243,14 +247,14 @@ public class ArtistDetailFragment extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_SEND);
                 if (!artist.getNomeArtistico().isEmpty()) {
-                    i.putExtra(Intent.EXTRA_TEXT, String.format("Check out %s's profile on CulArte! *link*", artist.getNomeArtistico()));
+                    i.putExtra(Intent.EXTRA_TEXT, String.format(getString(R.string.profile_sharing), artist.getNomeArtistico()));
                 } else {
-                    i.putExtra(Intent.EXTRA_TEXT, String.format("Check out %s's profile on CulArte! *link*", artist.getNomeCompleto()));
+                    i.putExtra(Intent.EXTRA_TEXT, String.format(getString(R.string.profile_sharing), artist.getNomeCompleto()));
                 }
-                i.setType("text/plain");
+                i.setType(TEXT_PLAIN);
 
                 if (i.resolveActivity(requireActivity().getPackageManager()) != null) {
-                    startActivity(Intent.createChooser(i, "Share profile:"));
+                    startActivity(Intent.createChooser(i, getString(R.string.share_profile_)));
                 }
             }
         });
@@ -266,11 +270,6 @@ public class ArtistDetailFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        //            case R.id.ic_favorite:
-        //                addToFavorites();
-        //                showSnackbar("Favorite Clicked");
-        //                break;
-
         if (item.getItemId() == R.id.ic_report) {
             reportArtist();
         }
@@ -280,11 +279,11 @@ public class ArtistDetailFragment extends Fragment {
 
     private void reportArtist() {
         Intent i = new Intent(Intent.ACTION_SENDTO);
-        i.setData(Uri.parse("mailto: doiliomatsinhe@gmail.com"));
+        i.setData(Uri.parse(getString(R.string.mail_to_)));
         if (!artist.getId().isEmpty()) {
-            i.putExtra(Intent.EXTRA_SUBJECT, String.format("Reporting user: %s", artist.getId()));
+            i.putExtra(Intent.EXTRA_SUBJECT, String.format(getString(R.string.reporting_user_), artist.getId()));
         }
-        startActivity(Intent.createChooser(i, "Report profile"));
+        startActivity(Intent.createChooser(i, getString(R.string.report_profile)));
     }
 
     private void showSnackbar(String msg) {
@@ -357,47 +356,47 @@ public class ArtistDetailFragment extends Fragment {
     private void openSpotify(String spotifyId) {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.addCategory(Intent.CATEGORY_BROWSABLE);
-        i.setData(Uri.parse(String.format("https://open.spotify.com/artist/%s", spotifyId)));
+        i.setData(Uri.parse(String.format(getString(R.string.spotify_link_), spotifyId)));
         startActivity(i);
     }
 
     private void openDeezer(String deezerId) {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.addCategory(Intent.CATEGORY_BROWSABLE);
-        if (Utils.isAppInstalled(requireActivity(), "deezer.android.app")) {
-            i.setPackage("deezer.android.app");
+        if (Utils.isAppInstalled(requireActivity(), getString(R.string.deezer_package_name))) {
+            i.setPackage(getString(R.string.deezer_package_name));
         }
-        i.setData(Uri.parse(String.format("https://www.deezer.com/en/artist/%s", deezerId)));
+        i.setData(Uri.parse(String.format(getString(R.string.deezer_link_), deezerId)));
         startActivity(i);
     }
 
     private void openMedium(String mediumId) {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.addCategory(Intent.CATEGORY_BROWSABLE);
-        if (Utils.isAppInstalled(requireActivity(), "com.medium.reader")) {
-            i.setPackage("com.medium.reader");
+        if (Utils.isAppInstalled(requireActivity(), getString(R.string.medium_package_name_))) {
+            i.setPackage(getString(R.string.medium_package_name_));
         }
-        i.setData(Uri.parse(String.format("https://medium.com/@%s", mediumId)));
+        i.setData(Uri.parse(String.format(getString(R.string.medium_site_), mediumId)));
         startActivity(i);
     }
 
     private void openLinkedIn(String linkedInId) {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.addCategory(Intent.CATEGORY_BROWSABLE);
-        if (Utils.isAppInstalled(requireActivity(), "com.linkedin.android")) {
-            i.setPackage("com.linkedin.android");
+        if (Utils.isAppInstalled(requireActivity(), getString(R.string.linkedin_package_name_))) {
+            i.setPackage(getString(R.string.linkedin_package_name_));
         }
-        i.setData(Uri.parse(String.format("https://www.linkedin.com/in/%s", linkedInId)));
+        i.setData(Uri.parse(String.format(getString(R.string.linkedin_site_), linkedInId)));
         startActivity(i);
     }
 
     private void openSoundCloud(String soundCloudId) {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.addCategory(Intent.CATEGORY_BROWSABLE);
-        if (Utils.isAppInstalled(requireActivity(), "com.soundcloud.android")) {
-            i.setPackage("com.soundcloud.android");
+        if (Utils.isAppInstalled(requireActivity(), getString(R.string.soundcloud_package_name))) {
+            i.setPackage(getString(R.string.soundcloud_package_name));
         }
-        i.setData(Uri.parse(String.format("https://soundcloud.com/%s", soundCloudId)));
+        i.setData(Uri.parse(String.format(getString(R.string.soundcloud_site_), soundCloudId)));
         startActivity(i);
     }
 
@@ -408,28 +407,28 @@ public class ArtistDetailFragment extends Fragment {
         /*        if (Utils.isAppInstalled(requireActivity(), "")) {
             i.setPackage("");
         }*/
-        i.setData(Uri.parse(String.format("https://github.com/%s", githubId)));
+        i.setData(Uri.parse(String.format(getString(R.string.github_site_), githubId)));
         startActivity(i);
     }
 
     private void openYoutube(String youtubeId) {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.addCategory(Intent.CATEGORY_BROWSABLE);
-        if (Utils.isAppInstalled(requireActivity(), "com.google.android.youtube")) {
-            i.setPackage("com.google.android.youtube");
+        if (Utils.isAppInstalled(requireActivity(), getString(R.string.youtube_package_name))) {
+            i.setPackage(getString(R.string.youtube_package_name));
         }
-        i.setData(Uri.parse(String.format("http://youtube.com/channel/%s", youtubeId)));
+        i.setData(Uri.parse(String.format(getString(R.string.youtube_site_), youtubeId)));
         startActivity(i);
     }
 
     private void openTwitter(String twitterId) {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.addCategory(Intent.CATEGORY_BROWSABLE);
-        if (Utils.isAppInstalled(requireActivity(), "com.twitter.android")) {
-            i.setPackage("com.twitter.android");
-            i.setData(Uri.parse(String.format("twitter://user?screen_name=%s", twitterId)));
+        if (Utils.isAppInstalled(requireActivity(), getString(R.string.twitter_package_name))) {
+            i.setPackage(getString(R.string.twitter_package_name));
+            i.setData(Uri.parse(String.format(getString(R.string.twitter_site_one_), twitterId)));
         } else {
-            i.setData(Uri.parse(String.format("http://twitter.com/intent/user?screen_name=%s", twitterId)));
+            i.setData(Uri.parse(String.format(getString(R.string.twitter_site_two_), twitterId)));
         }
         startActivity(i);
     }
@@ -437,35 +436,35 @@ public class ArtistDetailFragment extends Fragment {
     private void openInstagram(String instagramId) {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.addCategory(Intent.CATEGORY_BROWSABLE);
-        if (Utils.isAppInstalled(requireActivity(), "com.instagram.android")) {
-            i.setPackage("com.instagram.android");
+        if (Utils.isAppInstalled(requireActivity(), getString(R.string.instagram_package_name))) {
+            i.setPackage(getString(R.string.instagram_package_name));
         }
-        i.setData(Uri.parse(String.format("http://instagram.com/_u/%s", instagramId)));
+        i.setData(Uri.parse(String.format(getString(R.string.instagram_site_), instagramId)));
         startActivity(i);
     }
 
     private void openFacebook(String facebookId) {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.addCategory(Intent.CATEGORY_BROWSABLE);
-        if (Utils.isAppInstalled(requireActivity(), "com.facebook.katana")) {
-            i.setPackage("com.facebook.katana");
-            long versionCode = 0;
+        if (Utils.isAppInstalled(requireActivity(), getString(R.string.facebook_package_name))) {
+            i.setPackage(getString(R.string.facebook_package_name));
+            long versionCode = FACEBOOK_VERSION_CODE;
             try {
                 versionCode = requireActivity().getPackageManager()
-                        .getPackageInfo("com.facebook.katana", 0)
+                        .getPackageInfo(getString(R.string.facebook_package_name), FACEBOOK_FLAG)
                         .versionCode;
             } catch (PackageManager.NameNotFoundException e) {
                 Timber.d(e);
             }
-            if (versionCode >= 3002850) {
-                Uri uri = Uri.parse(String.format("fb://facewebmodal/f?href=http://m.facebook.com/%s", facebookId));
+            if (versionCode >= FACEBOOK_VERSION_INFERIOR) {
+                Uri uri = Uri.parse(String.format(getString(R.string.facebook_site_one_), facebookId));
                 i.setData(uri);
             } else {
-                Uri uri = Uri.parse(String.format("fb://page/%s", facebookId));
+                Uri uri = Uri.parse(String.format(getString(R.string.facebook_site_two_), facebookId));
                 i.setData(uri);
             }
         } else {
-            i.setData(Uri.parse(String.format("http://m.facebook.com/%s", facebookId)));
+            i.setData(Uri.parse(String.format(getString(R.string.facebook_site_three_), facebookId)));
         }
         startActivity(i);
     }
