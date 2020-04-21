@@ -7,6 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.doiliomatsinhe.cularte.R;
 import com.doiliomatsinhe.cularte.model.Artist;
 import com.doiliomatsinhe.cularte.utils.Converters;
 
@@ -24,7 +25,7 @@ public abstract class ArtistDatabase extends RoomDatabase {
     public static ArtistDatabase getInstance(Context context) {
         if (INSTANCE == null) {
             synchronized (ArtistDatabase.class) {
-                Timber.d("Creating Database Instance");
+                Timber.d(context.getString(R.string.creating_database_instance));
                 INSTANCE = Room.databaseBuilder(context,
                         ArtistDatabase.class,
                         DATABASE_NAME)
@@ -32,7 +33,7 @@ public abstract class ArtistDatabase extends RoomDatabase {
                         .build();
             }
         }
-        Timber.d("Fetching Database Instance");
+        Timber.d(context.getString(R.string.fetching_database_instance));
         return INSTANCE;
     }
 }

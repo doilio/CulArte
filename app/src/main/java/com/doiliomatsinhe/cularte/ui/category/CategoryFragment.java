@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.doiliomatsinhe.cularte.R;
 import com.doiliomatsinhe.cularte.adapter.CategoryAdapter;
 import com.doiliomatsinhe.cularte.data.Repository;
 import com.doiliomatsinhe.cularte.databinding.FragmentCategoryBinding;
@@ -71,8 +72,8 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
     private void showEmptyLayout() {
         binding.swipeRefresh.setRefreshing(false);
 
-        binding.exceptionsLayout.emptyText.setText("There are no public categories at this time, please check again later");
-        binding.exceptionsLayout.emptyTitle.setText("List is empty");
+        binding.exceptionsLayout.emptyText.setText(R.string.no_categories);
+        binding.exceptionsLayout.emptyTitle.setText(R.string.empty_list);
         binding.exceptionsLayout.layoutEmpty.setVisibility(View.VISIBLE);
         binding.recyclerCategory.setVisibility(View.GONE);
     }
@@ -81,7 +82,7 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
         adapter = new CategoryAdapter(this);
         binding.recyclerCategory.setAdapter(adapter);
         binding.recyclerCategory.setHasFixedSize(true);
-        GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 1, RecyclerView.VERTICAL, false);
+        GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), R.dimen.span_count, RecyclerView.VERTICAL, false);
         binding.recyclerCategory.setLayoutManager(layoutManager);
     }
 

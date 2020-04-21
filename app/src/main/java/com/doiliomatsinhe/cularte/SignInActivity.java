@@ -25,13 +25,14 @@ public class SignInActivity extends AppCompatActivity {
 
     private ActivitySignInBinding binding;
     private static final int RC_SIGN_IN = 1;
+    private static final int CHILD_INDEX = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in);
 
-        TextView textView = (TextView) binding.signInButton.getChildAt(0);
+        TextView textView = (TextView) binding.signInButton.getChildAt(CHILD_INDEX);
         textView.setText(getString(R.string.fui_sign_in_with_google));
 
         binding.signInButton.setOnClickListener(new View.OnClickListener() {
@@ -67,14 +68,14 @@ public class SignInActivity extends AppCompatActivity {
             } else {
                 // Sign In Failed
                 if (response == null) {
-                    showSnackbar("Login Cancelled!");
+                    showSnackbar(getString(R.string.login_cancelled));
                     return;
                 }
                 if (Objects.requireNonNull(response.getError()).getErrorCode() == ErrorCodes.NO_NETWORK) {
-                    showSnackbar("No Internet Connection!");
+                    showSnackbar(getString(R.string.no_internet));
                     return;
                 }
-                showSnackbar("Unknown Error!");
+                showSnackbar(getString(R.string.unknown_error));
                 Timber.d(response.getError());
 
             }

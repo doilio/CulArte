@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private NavigationView navigationView;
     private DrawerLayout drawer;
+    private static final String TEXT_PLAIN = "text/plain";
+    private static final int HEADER_INDEX = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     String photoUri = String.valueOf(user.getPhotoUrl());
                     String email = user.getEmail();
 
-                    View headerView = navigationView.getHeaderView(0);
+                    View headerView = navigationView.getHeaderView(HEADER_INDEX);
 
                     CircleImageView profileImg = headerView.findViewById(R.id.profile_image);
                     TextView textName = headerView.findViewById(R.id.text_name);
@@ -132,17 +134,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void shareApp(MenuItem item) {
         Intent i = new Intent(Intent.ACTION_SEND);
-        i.putExtra(Intent.EXTRA_TEXT, "Download CulArte at https://confirm.udacity.com/PKNCP76H and get in touch with our artists");
-        i.setType("text/plain");
-        startActivity(Intent.createChooser(i, "Share using:"));
+        i.putExtra(Intent.EXTRA_TEXT, getString(R.string.download_app));
+        i.setType(TEXT_PLAIN);
+        startActivity(Intent.createChooser(i, getString(R.string.share_using)));
         drawer.closeDrawer(GravityCompat.START);
     }
 
     public void conctactUs(MenuItem item) {
         Intent i = new Intent(Intent.ACTION_SENDTO);
-        i.setData(Uri.parse("mailto: doiliomatsinhe@gmail.com"));
-        i.putExtra(Intent.EXTRA_SUBJECT, "How can we improve?");
-        startActivity(Intent.createChooser(i, "Send comments"));
+        i.setData(Uri.parse(getString(R.string.mail_to_)));
+        i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.how_can_we_improve));
+        startActivity(Intent.createChooser(i, getString(R.string.send_comments)));
         drawer.closeDrawer(GravityCompat.START);
     }
 
