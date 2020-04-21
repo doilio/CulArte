@@ -1,8 +1,10 @@
 package com.doiliomatsinhe.cularte.ui.artistDetail;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -58,7 +59,9 @@ public class ArtistDetailFragment extends Fragment {
         if (getArguments() != null) {
             ArtistDetailFragmentArgs args = ArtistDetailFragmentArgs.fromBundle(getArguments());
             artist = args.getArtist();
-            initViewModel(artist);
+            if (artist != null) {
+                initViewModel(artist);
+            }
         }
 
         if (getActivity() != null) {
@@ -86,8 +89,6 @@ public class ArtistDetailFragment extends Fragment {
             // Artist coming from Artist Fragment
             populateUI(artist);
 
-        } else {
-            //TODO Populate with Artist Object coming from Room Database, when Favorites are working
         }
 
         database = ArtistDatabase.getInstance(getActivity());
@@ -138,15 +139,30 @@ public class ArtistDetailFragment extends Fragment {
     }
 
     // Add To Favorites
+    @SuppressLint("StaticFieldLeak")
     private void addToFavorites() {
-        // TODO Put in BG Thread
-        database.artistDao().addFavorite(artist);
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                database.artistDao().addFavorite(artist);
+                return null;
+            }
+        }.execute();
+        //database.artistDao().addFavorite(artist);
     }
 
     // Remove from Favorites
+    @SuppressLint("StaticFieldLeak")
     private void removeFromFavorites() {
-        // TODO Put in BG Thread
-        database.artistDao().removeArtist(artist);
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                database.artistDao().removeArtist(artist);
+                return null;
+            }
+        }.execute();
+        //database.artistDao().removeArtist(artist);
     }
 
     private void populateUI(final Artist artist) {

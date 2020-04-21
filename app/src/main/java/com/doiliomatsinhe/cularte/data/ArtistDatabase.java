@@ -28,7 +28,7 @@ public abstract class ArtistDatabase extends RoomDatabase {
                 INSTANCE = Room.databaseBuilder(context,
                         ArtistDatabase.class,
                         DATABASE_NAME)
-                        .allowMainThreadQueries() //TODO just for testing, remove when done
+                        //.allowMainThreadQueries() // just for testing, remove when done
                         .build();
             }
         }
