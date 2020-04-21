@@ -1,14 +1,27 @@
 package com.doiliomatsinhe.cularte.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 // Use a Parcelable Interface later
+@Entity(tableName = "artists")
 public class Artist implements Serializable {
+
+    @PrimaryKey
+    @NonNull
     private String id;
     private String nomeArtistico;
+    @Ignore
     private String nomeArtisticoFilter;
     private String nomeCompleto;
+    @Ignore
     private String nomeCompletoFilter;
     private String curtaDescricao;
     private String linkInstagram;
@@ -22,24 +35,29 @@ public class Artist implements Serializable {
     private String linkTwitter;
     private String linkYoutube;
     private String linkEmail;
+    @Ignore
     private String categoria;
     private String biografia;
+    @Ignore
     private String carreira;
     private Long contactoProfissional;
+    @Ignore
     private Boolean visibilidade;
     private ArrayList<String> imagensUrl;
+    @Ignore
     private String idUsuarioLogado;
+    @Ignore
     private String dataDeNascimento;
 
+    @Ignore
     public Artist() {
     }
 
-    public Artist(String id, String nomeArtistico, String nomeArtisticoFilter, String nomeCompleto, String nomeCompletoFilter, String curtaDescricao, String linkInstagram, String linkFacebook, String linkGithub, String linkDeezer, String linkLinkedIn, String linkMedium, String linkSpotify, String linkSoundCloud, String linkTwitter, String linkYoutube, String linkEmail, String categoria, String biografia, String carreira, Long contactoProfissional, Boolean visibilidade, ArrayList<String> imagensUrl, String idUsuarioLogado, String dataDeNascimento) {
+    // Room Constructor
+    public Artist(@NotNull String id, String nomeArtistico, String nomeCompleto, String curtaDescricao, String linkInstagram, String linkFacebook, String linkGithub, String linkDeezer, String linkLinkedIn, String linkMedium, String linkSpotify, String linkSoundCloud, String linkTwitter, String linkYoutube, String linkEmail, String biografia, Long contactoProfissional) {
         this.id = id;
         this.nomeArtistico = nomeArtistico;
-        this.nomeArtisticoFilter = nomeArtisticoFilter;
         this.nomeCompleto = nomeCompleto;
-        this.nomeCompletoFilter = nomeCompletoFilter;
         this.curtaDescricao = curtaDescricao;
         this.linkInstagram = linkInstagram;
         this.linkFacebook = linkFacebook;
@@ -52,15 +70,37 @@ public class Artist implements Serializable {
         this.linkTwitter = linkTwitter;
         this.linkYoutube = linkYoutube;
         this.linkEmail = linkEmail;
-        this.categoria = categoria;
         this.biografia = biografia;
-        this.carreira = carreira;
         this.contactoProfissional = contactoProfissional;
-        this.visibilidade = visibilidade;
-        this.imagensUrl = imagensUrl;
-        this.idUsuarioLogado = idUsuarioLogado;
-        this.dataDeNascimento = dataDeNascimento;
     }
+
+//    public Artist(String id, String nomeArtistico, String nomeArtisticoFilter, String nomeCompleto, String nomeCompletoFilter, String curtaDescricao, String linkInstagram, String linkFacebook, String linkGithub, String linkDeezer, String linkLinkedIn, String linkMedium, String linkSpotify, String linkSoundCloud, String linkTwitter, String linkYoutube, String linkEmail, String categoria, String biografia, String carreira, Long contactoProfissional, Boolean visibilidade, ArrayList<String> imagensUrl, String idUsuarioLogado, String dataDeNascimento) {
+//        this.id = id;
+//        this.nomeArtistico = nomeArtistico;
+//        this.nomeArtisticoFilter = nomeArtisticoFilter;
+//        this.nomeCompleto = nomeCompleto;
+//        this.nomeCompletoFilter = nomeCompletoFilter;
+//        this.curtaDescricao = curtaDescricao;
+//        this.linkInstagram = linkInstagram;
+//        this.linkFacebook = linkFacebook;
+//        this.linkGithub = linkGithub;
+//        this.linkDeezer = linkDeezer;
+//        this.linkLinkedIn = linkLinkedIn;
+//        this.linkMedium = linkMedium;
+//        this.linkSpotify = linkSpotify;
+//        this.linkSoundCloud = linkSoundCloud;
+//        this.linkTwitter = linkTwitter;
+//        this.linkYoutube = linkYoutube;
+//        this.linkEmail = linkEmail;
+//        this.categoria = categoria;
+//        this.biografia = biografia;
+//        this.carreira = carreira;
+//        this.contactoProfissional = contactoProfissional;
+//        this.visibilidade = visibilidade;
+//        this.imagensUrl = imagensUrl;
+//        this.idUsuarioLogado = idUsuarioLogado;
+//        this.dataDeNascimento = dataDeNascimento;
+//    }
 
     public String getId() {
         return id;

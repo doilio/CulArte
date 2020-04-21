@@ -66,4 +66,8 @@ dependencies {
     // View Wrapper
     implementation 'com.google.android:flexbox:2.0.1'
 
+    // Room
+    implementation 'androidx.room:room-runtime:2.2.5'
+    annotationProcessor 'androidx.room:room-compiler:2.2.5'
+
 }

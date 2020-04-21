@@ -1,14 +1,18 @@
 package com.doiliomatsinhe.cularte.ui.artistDetail;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,11 +22,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.doiliomatsinhe.cularte.R;
+import com.doiliomatsinhe.cularte.data.ArtistDatabase;
 import com.doiliomatsinhe.cularte.databinding.FragmentArtistDetailBinding;
 import com.doiliomatsinhe.cularte.model.Artist;
 import com.doiliomatsinhe.cularte.utils.Utils;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -36,19 +43,25 @@ public class ArtistDetailFragment extends Fragment {
     private FragmentArtistDetailBinding binding;
     private Artist artist;
     private String instagramId, facebookId, githubId, deezerId, linkedInId, mediumId, soundCloudId, spotifyId, twitterId, youtubeId;
+    private ArtistDetailViewModel viewModel;
+
+    private ArtistDatabase database;
 
     public ArtistDetailFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentArtistDetailBinding.inflate(inflater, container, false);
 
         if (getArguments() != null) {
             ArtistDetailFragmentArgs args = ArtistDetailFragmentArgs.fromBundle(getArguments());
             artist = args.getArtist();
+            if (artist != null) {
+                initViewModel(artist);
+            }
         }
 
         if (getActivity() != null) {
@@ -62,6 +75,12 @@ public class ArtistDetailFragment extends Fragment {
         return binding.getRoot();
     }
 
+    private void initViewModel(Artist artist) {
+
+        ArtistDetailViewModelFactory factory = new ArtistDetailViewModelFactory(requireActivity().getApplication(), artist.getId());
+        viewModel = new ViewModelProvider(this, factory).get(ArtistDetailViewModel.class);
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -69,10 +88,81 @@ public class ArtistDetailFragment extends Fragment {
         if (artist != null) {
             // Artist coming from Artist Fragment
             populateUI(artist);
-        } else {
-            //TODO Populate with Artist Object coming from Room Database, when Favorites are working
+
         }
+
+        database = ArtistDatabase.getInstance(getActivity());
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        final MenuItem favoriteItem = menu.findItem(R.id.ic_favorite);
+        viewModel.getFavoriteArtist().observe(getViewLifecycleOwner(), new Observer<Artist>() {
+            @Override
+            public void onChanged(Artist artist) {
+                if (artist != null) {
+                    favoriteItem.setIcon(R.drawable.ic_favorite_white_24dp);
+                    Timber.d("Is a Favorite");
+                } else {
+                    favoriteItem.setIcon(R.drawable.ic_favorite_border_white_24dp);
+                    Timber.d("Not a Favorite");
+                }
+
+            }
+        });
+
+        favoriteItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                viewModel.getFavoriteArtist().observe(getViewLifecycleOwner(), new Observer<Artist>() {
+                    @Override
+                    public void onChanged(Artist artist) {
+                        viewModel.getFavoriteArtist().removeObserver(this);
+                        if (artist != null) {
+                            removeFromFavorites();
+                            favoriteItem.setIcon(R.drawable.ic_favorite_border_white_24dp);
+                            showSnackbar("Removed from favorites!");
+                        } else {
+                            addToFavorites();
+                            favoriteItem.setIcon(R.drawable.ic_favorite_white_24dp);
+                            showSnackbar("Added to favorites!");
+                        }
+
+                    }
+                });
+                return false;
+            }
+        });
+
+    }
+
+    // Add To Favorites
+    @SuppressLint("StaticFieldLeak")
+    private void addToFavorites() {
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                database.artistDao().addFavorite(artist);
+                return null;
+            }
+        }.execute();
+        //database.artistDao().addFavorite(artist);
+    }
+
+    // Remove from Favorites
+    @SuppressLint("StaticFieldLeak")
+    private void removeFromFavorites() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                database.artistDao().removeArtist(artist);
+                return null;
+            }
+        }.execute();
+        //database.artistDao().removeArtist(artist);
     }
 
     private void populateUI(final Artist artist) {
@@ -80,7 +170,7 @@ public class ArtistDetailFragment extends Fragment {
         // Image
         if (artist.getImagensUrl().size() > 0) {
             Picasso.get().load(artist.getImagensUrl().get(0)).into(binding.detailImage);
-            Timber.d(artist.getImagensUrl().get(0));
+            //Timber.d(artist.getImagensUrl().get(0));
         } else {
             Picasso.get().load(R.color.colorPrimary).into(binding.detailImage);
         }
@@ -176,13 +266,13 @@ public class ArtistDetailFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()) {
-            case R.id.ic_favorite:
-                showSnackbar("Favorite Clicked");
-                break;
-            case R.id.ic_report:
-                reportArtist();
-                break;
+        //            case R.id.ic_favorite:
+        //                addToFavorites();
+        //                showSnackbar("Favorite Clicked");
+        //                break;
+
+        if (item.getItemId() == R.id.ic_report) {
+            reportArtist();
         }
 
         return super.onOptionsItemSelected(item);

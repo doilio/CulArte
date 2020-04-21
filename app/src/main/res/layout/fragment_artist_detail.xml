@@ -150,6 +150,17 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/linearlayout_contact" />
 
+                        <!--<TextView
+                            android:id="@+id/social_media_empty"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/artist_detail_social_media"
+                            tools:text="N/A" />-->
+
+
                         <com.google.android.flexbox.FlexboxLayout
                             android:id="@+id/flexboxLayout"
                             android:layout_width="0dp"

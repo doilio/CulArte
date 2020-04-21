@@ -19,12 +19,12 @@
         android:id="@+id/favoriteFragment"
         android:name="com.doiliomatsinhe.cularte.ui.favorite.FavoriteFragment"
         android:label="Favorites"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_artistDetailFragment"
+            app:destination="@id/artistDetailFragment" />
+    </fragment>
 
-    <fragment
-        android:id="@+id/aboutFragment"
-        android:name="com.doiliomatsinhe.cularte.ui.about.AboutFragment"
-        android:label="About" />
     <fragment
         android:id="@+id/artistFragment"
         android:name="com.doiliomatsinhe.cularte.ui.artist.ArtistFragment"
