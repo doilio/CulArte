@@ -18,11 +18,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.doiliomatsinhe.cularte.R;
+import com.doiliomatsinhe.cularte.data.ArtistDatabase;
 import com.doiliomatsinhe.cularte.databinding.FragmentArtistDetailBinding;
 import com.doiliomatsinhe.cularte.model.Artist;
 import com.doiliomatsinhe.cularte.utils.Utils;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -37,12 +40,14 @@ public class ArtistDetailFragment extends Fragment {
     private Artist artist;
     private String instagramId, facebookId, githubId, deezerId, linkedInId, mediumId, soundCloudId, spotifyId, twitterId, youtubeId;
 
+    private ArtistDatabase database;
+
     public ArtistDetailFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentArtistDetailBinding.inflate(inflater, container, false);
 
@@ -69,11 +74,23 @@ public class ArtistDetailFragment extends Fragment {
         if (artist != null) {
             // Artist coming from Artist Fragment
             populateUI(artist);
+
         } else {
             //TODO Populate with Artist Object coming from Room Database, when Favorites are working
         }
+
+        database = ArtistDatabase.getInstance(getActivity());
         setHasOptionsMenu(true);
     }
+
+
+    // Add To Favorites
+    private void addToFavorites() {
+
+        database.artistDao().addFavorite(artist);
+    }
+
+    // Remove from Favorites
 
     private void populateUI(final Artist artist) {
 
@@ -178,6 +195,7 @@ public class ArtistDetailFragment extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.ic_favorite:
+                addToFavorites();
                 showSnackbar("Favorite Clicked");
                 break;
             case R.id.ic_report:
