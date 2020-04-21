@@ -17,7 +17,9 @@ public class Converters {
     }
 
     @TypeConverter
-    public static String stringFromArrayList(ArrayList<String> imagensUrl) {
-        return imagensUrl.get(0);
+    public static String fromArrayList(ArrayList<String> list) {
+        Gson gson = new Gson();
+        return gson.toJson(list);
     }
+
 }

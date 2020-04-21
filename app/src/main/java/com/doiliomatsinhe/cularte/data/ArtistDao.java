@@ -17,8 +17,7 @@ public interface ArtistDao {
     @Query("SELECT * FROM artists ORDER BY id")
     LiveData<List<Artist>> getAllArtists();
 
-    //@Insert(onConflict = OnConflictStrategy.REPLACE)
-    @Insert //Test without conflictStrategy
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addFavorite(Artist artist);
 
     @Delete

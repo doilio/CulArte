@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -52,7 +54,7 @@ public class Artist implements Serializable {
     }
 
     // Room Constructor
-    public Artist(String id, String nomeArtistico, String nomeCompleto, String curtaDescricao, String linkInstagram, String linkFacebook, String linkGithub, String linkDeezer, String linkLinkedIn, String linkMedium, String linkSpotify, String linkSoundCloud, String linkTwitter, String linkYoutube, String linkEmail, String biografia, Long contactoProfissional, ArrayList<String> imagensUrl) {
+    public Artist(@NotNull String id, String nomeArtistico, String nomeCompleto, String curtaDescricao, String linkInstagram, String linkFacebook, String linkGithub, String linkDeezer, String linkLinkedIn, String linkMedium, String linkSpotify, String linkSoundCloud, String linkTwitter, String linkYoutube, String linkEmail, String biografia, Long contactoProfissional) {
         this.id = id;
         this.nomeArtistico = nomeArtistico;
         this.nomeCompleto = nomeCompleto;
@@ -70,7 +72,6 @@ public class Artist implements Serializable {
         this.linkEmail = linkEmail;
         this.biografia = biografia;
         this.contactoProfissional = contactoProfissional;
-        this.imagensUrl = imagensUrl;
     }
 
 //    public Artist(String id, String nomeArtistico, String nomeArtisticoFilter, String nomeCompleto, String nomeCompletoFilter, String curtaDescricao, String linkInstagram, String linkFacebook, String linkGithub, String linkDeezer, String linkLinkedIn, String linkMedium, String linkSpotify, String linkSoundCloud, String linkTwitter, String linkYoutube, String linkEmail, String categoria, String biografia, String carreira, Long contactoProfissional, Boolean visibilidade, ArrayList<String> imagensUrl, String idUsuarioLogado, String dataDeNascimento) {
