@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.doiliomatsinhe.cularte.R;
 import com.doiliomatsinhe.cularte.adapter.ArtistAdapter;
 import com.doiliomatsinhe.cularte.databinding.FragmentFavoriteBinding;
 import com.doiliomatsinhe.cularte.model.Artist;
@@ -78,7 +79,7 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
         adapter = new ArtistAdapter(this);
         binding.recyclerFavorites.setAdapter(adapter);
         binding.recyclerFavorites.setHasFixedSize(true);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(getResources().getInteger(R.integer.span_count_artists), StaggeredGridLayoutManager.VERTICAL);
         binding.recyclerFavorites.setLayoutManager(layoutManager);
     }
 

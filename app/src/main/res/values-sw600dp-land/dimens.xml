@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="span_count_category">3</integer>
+    <integer name="span_count_artists">4</integer>
+</resources>
