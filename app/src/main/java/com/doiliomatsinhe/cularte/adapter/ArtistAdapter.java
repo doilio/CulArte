@@ -43,9 +43,9 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
             binding.artistDescription.setText(currentArtist.getCurtaDescricao());
 
             if (currentArtist.getImagensUrl().size() > 0) {
-                Picasso.get().load(currentArtist.getImagensUrl().get(0)).into(binding.artistImage);
+                Picasso.get().load(currentArtist.getImagensUrl().get(0)).placeholder(R.drawable.undraw_loading).error(R.drawable.undraw_server_down).into(binding.artistImage);
             } else {
-                Picasso.get().load(R.color.colorPrimary).into(binding.artistImage);
+                Picasso.get().load(R.color.colorPlaceholder).into(binding.artistImage);
             }
 
 

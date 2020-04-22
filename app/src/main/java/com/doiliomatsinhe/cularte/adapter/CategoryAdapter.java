@@ -39,9 +39,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             binding.categoryDescription.setText(currentCategory.getDescricao());
 
             if (!currentCategory.getImagemUrl().isEmpty()) {
-                Picasso.get().load(currentCategory.getImagemUrl()).error(R.color.colorPrimary).into(binding.categoryImage);
+                Picasso.get().load(currentCategory.getImagemUrl()).error(R.drawable.undraw_server_down).into(binding.categoryImage);
             } else {
-                Picasso.get().load(R.color.colorPrimary).into(binding.categoryImage);
+
+                //Picasso.get().load(R.drawable.undraw_photographer).fit().centerInside().placeholder(R.color.colorPlaceholder).into(binding.categoryImage);
+                Picasso.get().load(R.color.colorPlaceholder).fit().centerInside().into(binding.categoryImage);
             }
 
 

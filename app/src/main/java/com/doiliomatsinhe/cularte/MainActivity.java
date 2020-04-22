@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     textEmail.setText(email);
 
                     if (!photoUri.isEmpty()) {
-                        Picasso.get().load(photoUri).into(profileImg);
+                        Picasso.get().load(photoUri).placeholder(R.drawable.undraw_loading).into(profileImg);
                     }
 
                     Timber.d(userId + "\n" + username + "\n" + photoUri + "\n" + email);

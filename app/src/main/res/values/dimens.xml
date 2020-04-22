@@ -8,11 +8,13 @@
     <integer name="span_count_category">1</integer>
     <integer name="span_count_artists">2</integer>
     <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_bigger">32dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_big">24dp</dimen>
     <dimen name="padding_normal">16dp</dimen>
     <dimen name="text_size_title">32sp</dimen>
     <dimen name="text_size_subtitle">14sp</dimen>
+    <dimen name="text_size_subtitle_big">18sp</dimen>
     <dimen name="weight">1</dimen>
 
     <!--
