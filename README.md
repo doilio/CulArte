@@ -19,6 +19,11 @@ hrough this project, you'll demonstrate the ability to communicate an app idea f
 - A list of required tasks that you will complete to build the app, in order
 The Capstone project will give you the experience you need to own the full development of an app. This first stage replicates the design and planning experience that proficient Android Developers are expected to demonstrate.
 
+## Data Aquisition
+The Data I used, and am currently using for this final project on Udacity is being gathered from real Artists in Mozambique(my country), currently they send their data through this link [Google Forms](https://forms.gle/vNufJEt9u3hhuncT8), then I insert it manually to Firebase's Firestore and Storage.
+
+In the future I plan on having a separate flavor, and a webpage where data will be inserted directly into firebase.
+
 ## SignIn and Category
 
 ![device-2020-04-22-143130](https://user-images.githubusercontent.com/38020305/79987130-521c0c80-84ad-11ea-9f2e-fbea1cecfe3d.png)
