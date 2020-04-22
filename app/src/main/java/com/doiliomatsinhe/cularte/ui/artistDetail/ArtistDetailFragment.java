@@ -48,7 +48,7 @@ public class ArtistDetailFragment extends Fragment {
     private static final Long FACEBOOK_VERSION_CODE = 0L;
     private static final int FACEBOOK_FLAG = 0;
     private static final int FACEBOOK_VERSION_INFERIOR = 3002850;
-    private static final int PHONE_NR_VALID = 800000000;
+    private static final int PHONE_NR_VALID = 8000000;
 
     private ArtistDatabase database;
 

@@ -45,4 +45,8 @@
             app:argType="com.doiliomatsinhe.cularte.model.Artist"
             app:nullable="true" />
     </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.doiliomatsinhe.cularte.ui.about.AboutFragment"
+        android:label="AboutFragment" />
 </navigation>
