@@ -1,5 +1,9 @@
 package com.doiliomatsinhe.cularte.ui.favorite;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +23,12 @@ import com.doiliomatsinhe.cularte.R;
 import com.doiliomatsinhe.cularte.adapter.ArtistAdapter;
 import com.doiliomatsinhe.cularte.databinding.FragmentFavoriteBinding;
 import com.doiliomatsinhe.cularte.model.Artist;
+import com.doiliomatsinhe.cularte.utils.Utils;
+import com.doiliomatsinhe.cularte.widget.ArtistWidget;
 
 import java.util.List;
+
+import timber.log.Timber;
 
 public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ArtistAdapter.ArtistItemClickListener {
 
@@ -28,6 +36,8 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
     private FragmentFavoriteBinding binding;
     private ArtistAdapter adapter;
     private List<Artist> favoritesList;
+    public static final String ARTIST_PREF = "artist_preference";
+    public static final String FAVORITES = "my_favorites";
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -51,6 +61,7 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
             public void onChanged(List<Artist> artists) {
                 if (artists.isEmpty()) {
                     showEmptyLayout();
+
                 } else {
                     adapter.setArtistList(artists);
                     favoritesList = artists;
@@ -65,6 +76,10 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
         binding.swipeRefresh.setRefreshing(false);
         binding.exceptionsLayout.layoutFavorites.setVisibility(View.VISIBLE);
         binding.recyclerFavorites.setVisibility(View.GONE);
+
+        // Clear Preferences
+        clearSharedPreferences();
+        updateWidget();
     }
 
     private void initialConfig() {
@@ -91,7 +106,48 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onArtistItemClick(int position) {
         Artist currentFavorite = favoritesList.get(position);
+
+        // Save to Shared Preferences
+        String myFavorite = Utils.getJsonFromObject(currentFavorite);
+        saveSharedPreferences(myFavorite);
+
         NavDirections action = FavoriteFragmentDirections.actionFavoriteFragmentToArtistDetailFragment(currentFavorite);
         NavHostFragment.findNavController(this).navigate(action);
+
+
+    }
+
+    private void saveSharedPreferences(String myFavorite) {
+        clearSharedPreferences();
+        SharedPreferences sharedPref = requireActivity().getSharedPreferences(ARTIST_PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(FAVORITES, myFavorite);
+
+        editor.apply();
+        Timber.d("Saved to Preferences");
+
+        updateWidget();
+    }
+
+    private void updateWidget() {
+        // Updates the Widget
+        Context context = requireActivity().getApplicationContext();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        ComponentName widget = new ComponentName(context, ArtistWidget.class);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(widget);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_linear);
+    }
+
+    private void clearSharedPreferences() {
+        SharedPreferences sharedPref = requireActivity().getSharedPreferences(ARTIST_PREF, Context.MODE_PRIVATE);
+
+        if (sharedPref != null) {
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.clear();
+            editor.apply();
+            Timber.d("Preferences cleared");
+        } else {
+            Timber.d("Shared Pref is null");
+        }
     }
 }

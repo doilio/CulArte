@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class Utils {
@@ -21,5 +24,15 @@ public class Utils {
             }
         }
         return isInstalled;
+    }
+
+    public static String getJsonFromObject(Object object) {
+        Gson gson = new Gson();
+        return gson.toJson(object);
+    }
+
+    public static Object getObjectFromJson(String json, Type type) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, type);
     }
 }
