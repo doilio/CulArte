@@ -101,6 +101,14 @@
     <string name="story_not_available">Story Not Available</string>
     <string name="empty_widget">Empty Widget</string>
     <string name="empty">Empty</string>
+    <string name="add_to_favorite">Add to Favorite</string>
+    <string name="report">Report</string>
+    <string name="categories">Categories</string>
+    <string name="favorites">Favorites</string>
+    <string name="share">Share</string>
+    <string name="contact_us">Contact-us</string>
+    <string name="sign_out">Sign out</string>
+    <string name="about">About</string>
 
 
 </resources>

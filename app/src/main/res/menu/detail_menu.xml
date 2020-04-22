@@ -6,11 +6,11 @@
         android:id="@+id/ic_favorite"
         android:icon="@drawable/ic_favorite_border_white_24dp"
         android:orderInCategory="80"
-        android:title="Add to Favorite"
+        android:title="@string/add_to_favorite"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/ic_report"
         android:orderInCategory="90"
-        android:title="Report"
+        android:title="@string/report"
         app:showAsAction="never" />
 </menu>
