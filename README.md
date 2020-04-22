@@ -1,5 +1,5 @@
 # CulArte
-Android Developer Nanodegree - Project 7 - Capstone Stage 1
+Android Developer Nanodegree - Project 7 - Capstone Stage 2
 
 ## Project Overview
 In the Capstone project, you will build an app of your own design in two stages. In Stage 1, you will design and plan the app, using a template that we provide in the "Instructions" node.
@@ -19,4 +19,23 @@ hrough this project, you'll demonstrate the ability to communicate an app idea f
 - A list of required tasks that you will complete to build the app, in order
 The Capstone project will give you the experience you need to own the full development of an app. This first stage replicates the design and planning experience that proficient Android Developers are expected to demonstrate.
 
+## SignIn and Category
+
+![device-2020-04-22-143130](https://user-images.githubusercontent.com/38020305/79987130-521c0c80-84ad-11ea-9f2e-fbea1cecfe3d.png)
+![device-2020-04-22-143220](https://user-images.githubusercontent.com/38020305/79987147-57795700-84ad-11ea-8d56-f474a016365a.png)
+
+## Artists in Singer Category
+
+![device-2020-04-22-143533](https://user-images.githubusercontent.com/38020305/79987153-58aa8400-84ad-11ea-9e2c-2f31aea9d1be.png)
+![device-2020-04-22-143757](https://user-images.githubusercontent.com/38020305/79987174-5d6f3800-84ad-11ea-93d0-17b9761ffa4d.png)
+![device-2020-04-22-143823](https://user-images.githubusercontent.com/38020305/79987188-619b5580-84ad-11ea-9d38-0e7c08fb4c79.png)
+![device-2020-04-22-144047](https://user-images.githubusercontent.com/38020305/79987197-64964600-84ad-11ea-919d-cdcf53d153d5.png)
+![device-2020-04-22-144142](https://user-images.githubusercontent.com/38020305/79987210-6829cd00-84ad-11ea-936a-e1ee15aa8f00.png)
+
+## Common Layouts(Loading, Empty, Server Error)
+
+![device-2020-04-22-143407](https://user-images.githubusercontent.com/38020305/79987630-f69e4e80-84ad-11ea-86ae-013c46fda70d.png)
+![device-2020-04-22-144223](https://user-images.githubusercontent.com/38020305/79987636-f7cf7b80-84ad-11ea-9841-7b13889dc745.png)
+![device-2020-04-22-144322](https://user-images.githubusercontent.com/38020305/79987639-f900a880-84ad-11ea-8d0d-adcb12fdfe08.png)
+![device-2020-04-22-150311](https://user-images.githubusercontent.com/38020305/79987648-fa31d580-84ad-11ea-927c-52bde1d1e3cd.png)
 
