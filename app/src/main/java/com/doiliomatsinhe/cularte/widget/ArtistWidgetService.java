@@ -1,10 +1,10 @@
 package com.doiliomatsinhe.cularte.widget;
 
-import android.app.Application;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.SystemClock;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -35,7 +35,7 @@ public class ArtistWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
-
+            SystemClock.sleep(4000);
         }
 
         @Override

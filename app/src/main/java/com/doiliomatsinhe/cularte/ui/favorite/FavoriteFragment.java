@@ -1,5 +1,7 @@
 package com.doiliomatsinhe.cularte.ui.favorite;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import com.doiliomatsinhe.cularte.adapter.ArtistAdapter;
 import com.doiliomatsinhe.cularte.databinding.FragmentFavoriteBinding;
 import com.doiliomatsinhe.cularte.model.Artist;
 import com.doiliomatsinhe.cularte.utils.Utils;
+import com.doiliomatsinhe.cularte.widget.ArtistWidget;
 
 import java.util.List;
 
@@ -58,6 +61,7 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
             public void onChanged(List<Artist> artists) {
                 if (artists.isEmpty()) {
                     showEmptyLayout();
+
                 } else {
                     adapter.setArtistList(artists);
                     favoritesList = artists;
@@ -72,6 +76,10 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
         binding.swipeRefresh.setRefreshing(false);
         binding.exceptionsLayout.layoutFavorites.setVisibility(View.VISIBLE);
         binding.recyclerFavorites.setVisibility(View.GONE);
+
+        // Clear Preferences
+        clearSharedPreferences();
+        updateWidget();
     }
 
     private void initialConfig() {
@@ -117,6 +125,17 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         editor.apply();
         Timber.d("Saved to Preferences");
+
+        updateWidget();
+    }
+
+    private void updateWidget() {
+        // Updates the Widget
+        Context context = requireActivity().getApplicationContext();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        ComponentName widget = new ComponentName(context, ArtistWidget.class);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(widget);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_linear);
     }
 
     private void clearSharedPreferences() {

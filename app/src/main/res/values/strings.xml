@@ -99,6 +99,8 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="story_not_available">Story Not Available</string>
+    <string name="empty_widget">Empty Widget</string>
+    <string name="empty">Empty</string>
 
 
 </resources>
