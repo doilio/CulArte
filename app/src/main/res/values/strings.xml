@@ -96,6 +96,9 @@
     <string name="category_image">Category Image</string>
     <string name="cularte">CulArte</string>
     <string name="app_to_share_artists_portfolio_around_the_world">App to share artists portfolio around the world</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="story_not_available">Story Not Available</string>
 
 
 </resources>
